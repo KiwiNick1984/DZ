@@ -339,6 +339,13 @@ namespace DZ_2
             }
             Console.WriteLine(dz8_str);
             Console.WriteLine(dz8_codedStr);
+            for (int i = 0, j = 0; i < dz8_codedStr.Length; i++, j++)
+            {
+                if (j == dz8_key.Length)
+                    j = 0;
+                dz8_decodedStr += Convert.ToChar(dz8_codedStr[i] ^ dz8_key[j]);
+            }
+            Console.WriteLine(dz8_decodedStr);
         }
     }
 }
