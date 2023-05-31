@@ -321,6 +321,31 @@ namespace DZ_2
             //Console.WriteLine("\nДз 8 -> \"Enter\"...");
             //Console.ReadLine();
             //Console.Clear();
+
+            ///////////////////////////////ДЗ 8/////////////////////////////
+            Console.WriteLine("\t\tДЗ 8");
+            Console.WriteLine("Симетричне шифрування. Є строка на вхід, який має бути зашифрований.\n" +
+                              "Ключ можна задати в коді або згенерувати та зберегти. Два методи, шифрування та дешифрування.");
+            ////////////////////////////////////////////////////////////////
+            String dz8_str = "Строка для шифрования";
+            String dz8_key = "mykey";
+            String dz8_codedStr = "";
+            String dz8_decodedStr = "";
+            for (int i = 0, j = 0; i < dz8_str.Length; i++, j++)
+            {
+                if (j == dz8_key.Length)
+                    j = 0;
+                dz8_codedStr += Convert.ToChar(dz8_str[i] ^ dz8_key[j]);
+            }
+            Console.WriteLine(dz8_str);
+            Console.WriteLine(dz8_codedStr);
+            for (int i = 0, j = 0; i < dz8_codedStr.Length; i++, j++)
+            {
+                if (j == dz8_key.Length)
+                    j = 0;
+                dz8_decodedStr += Convert.ToChar(dz8_codedStr[i] ^ dz8_key[j]);
+            }
+            Console.WriteLine(dz8_decodedStr);
         }
     }
 }
