@@ -240,87 +240,87 @@ namespace DZ_2
             //Console.ReadLine();
             //Console.Clear();
 
-            ///////////////////////////////ДЗ 7/////////////////////////////
-            Console.WriteLine("\t\tДЗ 7");
-            Console.WriteLine("Найпростіше стиснення ланцюжка ДНК. Ланцюг ДНК у вигляді строки на вхід(кожен нуклеотид\n" +
-                "представлений символом \"A\", \"C\", \"G\", \"T\").Два методи, один для компресії, інший для декомпресії.");
-            ////////////////////////////////////////////////////////////////
-            string dz7_DNK = "ACTGGACCTCACGGAATCGATACAGATTACACCCATAAGCCTTG";
-            //Архивация ДНК
-            string dz7_archiveDNK = "";
-            int dz7_code = 0;
-            for (int i = 0; i < dz7_DNK.Length; i++)
-            {
-                switch (dz7_DNK[i])
-                {
-                    case 'A':
-                        dz7_code = dz7_code + (0 << i % 8 * 2);
-                        break;
-                    case 'C':
-                        dz7_code = dz7_code + (1 << i % 8 * 2);
-                        break;
-                    case 'T':
-                        dz7_code = dz7_code + (2 << i % 8 * 2);
-                        break;
-                    case 'G':
-                        dz7_code = dz7_code + (3 << i % 8 * 2);
-                        break;
-                }
-                if ((i + 1) % 8 == 0 || i + 1 == dz7_DNK.Length)
-                {
-                    dz7_archiveDNK += Convert.ToChar(dz7_code);
-                    dz7_code = 0;
-                    if (i + 1 == dz7_DNK.Length)
-                    {
-                        dz7_archiveDNK += Convert.ToChar(dz7_DNK.Length);
-                    }
-                }
-            }
-            //Занимаемая память = длина строки * 2 байта + 2 байта на символ конца строки
-            int dz7_sizeDNK = dz7_DNK.Length * sizeof(char) + 2;
-            int dz7_sizeArchiveDNK = dz7_archiveDNK.Length * sizeof(char) + 2;
-            Console.WriteLine();
-            Console.Write(dz7_DNK);
-            Console.WriteLine($" -> {dz7_sizeDNK} байт");
-            Console.Write(dz7_archiveDNK);
-            Console.WriteLine($" -> {dz7_sizeArchiveDNK} байт");
-            Console.WriteLine($"Процент сжатия -> {100 - dz7_sizeArchiveDNK * 100 / dz7_sizeDNK}%");
-            //Восстановление ДНК
-            dz7_DNK = "";
-            for (int i = 0; i < dz7_archiveDNK.Length - 1; i++)
-            {
-                dz7_code = dz7_archiveDNK[i];
+            /////////////////////////////////ДЗ 7/////////////////////////////
+            //Console.WriteLine("\t\tДЗ 7");
+            //Console.WriteLine("Найпростіше стиснення ланцюжка ДНК. Ланцюг ДНК у вигляді строки на вхід(кожен нуклеотид\n" +
+            //    "представлений символом \"A\", \"C\", \"G\", \"T\").Два методи, один для компресії, інший для декомпресії.");
+            //////////////////////////////////////////////////////////////////
+            //string dz7_DNK = "ACTGGACCTCACGGAATCGATACAGATTACACCCATAAGCCTTG";
+            ////Архивация ДНК
+            //string dz7_archiveDNK = "";
+            //int dz7_code = 0;
+            //for (int i = 0; i < dz7_DNK.Length; i++)
+            //{
+            //    switch (dz7_DNK[i])
+            //    {
+            //        case 'A':
+            //            dz7_code = dz7_code + (0 << i % 8 * 2);
+            //            break;
+            //        case 'C':
+            //            dz7_code = dz7_code + (1 << i % 8 * 2);
+            //            break;
+            //        case 'T':
+            //            dz7_code = dz7_code + (2 << i % 8 * 2);
+            //            break;
+            //        case 'G':
+            //            dz7_code = dz7_code + (3 << i % 8 * 2);
+            //            break;
+            //    }
+            //    if ((i + 1) % 8 == 0 || i + 1 == dz7_DNK.Length)
+            //    {
+            //        dz7_archiveDNK += Convert.ToChar(dz7_code);
+            //        dz7_code = 0;
+            //        if (i + 1 == dz7_DNK.Length)
+            //        {
+            //            dz7_archiveDNK += Convert.ToChar(dz7_DNK.Length);
+            //        }
+            //    }
+            //}
+            ////Занимаемая память = длина строки * 2 байта + 2 байта на символ конца строки
+            //int dz7_sizeDNK = dz7_DNK.Length * sizeof(char) + 2;
+            //int dz7_sizeArchiveDNK = dz7_archiveDNK.Length * sizeof(char) + 2;
+            //Console.WriteLine();
+            //Console.Write(dz7_DNK);
+            //Console.WriteLine($" -> {dz7_sizeDNK} байт");
+            //Console.Write(dz7_archiveDNK);
+            //Console.WriteLine($" -> {dz7_sizeArchiveDNK} байт");
+            //Console.WriteLine($"Процент сжатия -> {100 - dz7_sizeArchiveDNK * 100 / dz7_sizeDNK}%");
+            ////Восстановление ДНК
+            //dz7_DNK = "";
+            //for (int i = 0; i < dz7_archiveDNK.Length - 1; i++)
+            //{
+            //    dz7_code = dz7_archiveDNK[i];
 
-                for (int j = 0; j < 8; j++)
-                {
-                    dz7_code = dz7_code & 3;
-                    switch (dz7_code)
-                    {
-                        case 0:
-                            dz7_DNK += 'A';
-                            break;
-                        case 1:
-                            dz7_DNK += 'C';
-                            break;
-                        case 2:
-                            dz7_DNK += 'T';
-                            break;
-                        case 3:
-                            dz7_DNK += 'G';
-                            break;
-                    }
-                    if (dz7_DNK.Length == dz7_archiveDNK[dz7_archiveDNK.Length - 1])
-                    {
-                        break;
-                    }
-                    dz7_code = dz7_archiveDNK[i] >> (j + 1) * 2;
-                }
-            }
-            Console.WriteLine(dz7_DNK);
-            //Ожидание "Enter"
-            Console.WriteLine("\nДз 8 -> \"Enter\"...");
-            Console.ReadLine();
-            Console.Clear();
+            //    for (int j = 0; j < 8; j++)
+            //    {
+            //        dz7_code = dz7_code & 3;
+            //        switch (dz7_code)
+            //        {
+            //            case 0:
+            //                dz7_DNK += 'A';
+            //                break;
+            //            case 1:
+            //                dz7_DNK += 'C';
+            //                break;
+            //            case 2:
+            //                dz7_DNK += 'T';
+            //                break;
+            //            case 3:
+            //                dz7_DNK += 'G';
+            //                break;
+            //        }
+            //        if (dz7_DNK.Length == dz7_archiveDNK[dz7_archiveDNK.Length - 1])
+            //        {
+            //            break;
+            //        }
+            //        dz7_code = dz7_archiveDNK[i] >> (j + 1) * 2;
+            //    }
+            //}
+            //Console.WriteLine(dz7_DNK);
+            ////Ожидание "Enter"
+            //Console.WriteLine("\nДз 8 -> \"Enter\"...");
+            //Console.ReadLine();
+            //Console.Clear();
         }
     }
 }
