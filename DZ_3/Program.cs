@@ -132,9 +132,11 @@ namespace DZ_3
     {
         private Card[] _deck = new Card[36];
         private Card[] _shakeDeck = new Card[36];
+        private int _playedCardsNumber;
 
         public Deck()
         {
+            _playedCardsNumber = 0;
             Card.ResetLastCard(); //для начала работы метода NextCard (обнулить предыдущую карту)
             for (int i = 0; i < 36; i++)
             {
@@ -191,7 +193,7 @@ namespace DZ_3
                 }
             }
         }
-        public void SpadesToStart()
+        public void SpadesToStart()     //Пики в начало колоды
         {
             Card tempCard;
             int cardPosition = 0;
@@ -206,7 +208,7 @@ namespace DZ_3
                 }
             }
         }
-        public void Sort()
+        public void Sort()              //Сортировка
         {
             Card tempCard;
             int i;
@@ -222,8 +224,82 @@ namespace DZ_3
                 _deck[i+1] = tempCard;
             }
         }
+
+        public Card GiveCard()
+        {
+            return _deck[_playedCardsNumber++];
+        }
     }
 
+    class TheGame
+    {
+        private Deck _deck = new Deck();                    //Колода
+        private bool _whoIsFirst;                           //Флаг кто первый FALSE - бот, TRUE - игрок
+        private List<Card> _playerHand = new List<Card>();  //рука игрока
+        private List<Card> _botHand = new List<Card>();     //рука бота
+        private int _playerPoints;                          //Очки игрока
+        private int _botPoints;                             //Очки бота
+
+        public TheGame()
+        {
+            _deck.Shake();
+            _playerPoints = 0;
+            _botPoints = 0;
+            Console.WriteLine("Кто первый?");
+            Console.WriteLine("1 - бот");
+            Console.WriteLine("2 - игрок");
+            Console.Write("- >");
+            _whoIsFirst = Convert.ToInt32(Console.ReadLine()) == 2;
+            GivePlayerCard();
+            GivePlayerCard();
+            GiveBotCard();
+            GiveBotCard();
+            PrintPlayerHand();
+            PrintBotHand();
+        }
+
+        public void PrintPoins()
+        {
+            Console.WriteLine($"Игрок - {_playerPoints}");
+            Console.WriteLine($"Бот - {_botPoints}");
+        }
+        private void GivePlayerCard()
+        {
+            _playerHand.Add(_deck.GiveCard());
+            _playerPoints += _playerHand.Last().ValueCard ;
+        }
+        private void GiveBotCard()
+        {
+            _botHand.Add(_deck.GiveCard());
+            _botPoints += _botHand.Last().ValueCard;
+        }
+
+        private void PrintPlayerHand()
+        {
+            Console.Write("Игрок -> ");
+            foreach (var item in _playerHand)
+            {
+                item.PrintCard();
+                Console.Write(" ");
+            }
+            Console.WriteLine();
+        }
+        private void PrintBotHand()
+        {
+            Console.Write("Бот -> ");
+            foreach (var item in _botHand)
+            {
+                item.PrintCard();
+                Console.Write(" ");
+            }
+            Console.WriteLine();
+        }
+
+        public void Game()
+        { 
+
+        }
+    }
     //public enum SuitCard
     //{
     //    Spades,     // пики \u2660
@@ -251,6 +327,13 @@ namespace DZ_3
             Console.WriteLine("Відсортувати колоду (по очкам)");
             deck_1.Sort();
             deck_1.PrintDeck();
+            //Ожидание "Enter"
+            Console.WriteLine("\nПерейти к игре -> \"Enter\"...");
+            Console.ReadLine();
+            Console.Clear();
+
+            //Игра 21
+            TheGame theGame = new TheGame();
         }
     }
 }
