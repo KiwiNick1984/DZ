@@ -131,6 +131,7 @@ namespace DZ_3
     class Deck
     {
         private Card[] _deck = new Card[36];
+        private Card[] _shakeDeck = new Card[36];
 
         public Deck()
         {
@@ -152,6 +153,26 @@ namespace DZ_3
                     Console.Write(", ");
             }
         }
+        public void Shake()
+        {
+            Random random = new Random();
+            int i;
+            foreach (var item in _deck)
+            {
+                while (true) {
+                    i = random.Next(0, 36);
+                    if (_shakeDeck[i]==null) 
+                    {
+                        _shakeDeck[i] = item;
+                        break;
+                    }
+                }                
+            }
+            for (int j = 0; j < _deck.Length; j++)
+            {
+                _deck[j] = _shakeDeck[j];
+            }
+        }
     }
 
     //public enum SuitCard
@@ -166,9 +187,14 @@ namespace DZ_3
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.Unicode;
             //Card card_1 = new Card(8, 2);
             //card_1.PrintCard();
+            Console.WriteLine("Згенерувати впорядковану колоду карт");
             Deck deck_1 = new Deck();
+            deck_1.PrintDeck();
+            Console.WriteLine("Перемішати колоду карт");
+            deck_1.Shake();
             deck_1.PrintDeck();
         }
     }
