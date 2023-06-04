@@ -147,13 +147,13 @@ namespace DZ_3
             for (int i = 0; i < 36; i++)
             {
                 _deck[i].PrintCard();
-                if((i+1) % 9 == 0)
+                if ((i + 1) % 9 == 0)
                     Console.WriteLine();
                 else
                     Console.Write(", ");
             }
         }
-        public void Shake()
+        public void Shake()     //Перемешать колоду
         {
             Random random = new Random();
             int i;
@@ -161,16 +161,65 @@ namespace DZ_3
             {
                 while (true) {
                     i = random.Next(0, 36);
-                    if (_shakeDeck[i]==null) 
+                    if (_shakeDeck[i] == null)
                     {
                         _shakeDeck[i] = item;
                         break;
                     }
-                }                
+                }
             }
             for (int j = 0; j < _deck.Length; j++)
             {
                 _deck[j] = _shakeDeck[j];
+            }
+        }
+        public void PrintAcePosition()  //Вывод позиции тузов в колоде на экран
+        {
+            int i = 0;
+            for (int j = 0; j < _deck.Length; j++)
+            {
+                if(_deck[j].ValueCard == 11)
+                {
+                    if(i<4)
+                        Console.Write((j+1) + ", ");
+                    else
+                    {
+                        Console.Write(j+1);
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        public void SpadesToStart()
+        {
+            Card tempCard;
+            int cardPosition = 0;
+            for (int i = 0; i < _deck.Length; i++)
+            {
+                if (_deck[i].SuitCard == 1)
+                {
+                    tempCard = _deck[i];
+                    _deck[i] = _deck[cardPosition];
+                    _deck[cardPosition] = tempCard;
+                    cardPosition++;
+                }
+            }
+        }
+        public void Sort()
+        {
+            Card tempCard;
+            int i;
+            for (int j = 1; j < _deck.Length; j++)
+            {
+                tempCard = _deck[j];
+                i = j - 1;
+                while (i>=0 && ((_deck[i].ValueCard > tempCard.ValueCard && _deck[i].SuitCard == tempCard.SuitCard) || (_deck[i].SuitCard > tempCard.SuitCard)))
+                {
+                    _deck[i + 1] = _deck[i];
+                    i = i - 1;
+                }
+                _deck[i+1] = tempCard;
             }
         }
     }
@@ -188,13 +237,19 @@ namespace DZ_3
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.Unicode;
-            //Card card_1 = new Card(8, 2);
-            //card_1.PrintCard();
             Console.WriteLine("Згенерувати впорядковану колоду карт");
             Deck deck_1 = new Deck();
             deck_1.PrintDeck();
             Console.WriteLine("Перемішати колоду карт");
             deck_1.Shake();
+            deck_1.PrintDeck();
+            Console.WriteLine("Знайти позиції всіх тузів у колоді");
+            deck_1.PrintAcePosition();
+            Console.WriteLine("\nПеремістити всі пікові карти на початок колоди");
+            deck_1.SpadesToStart();
+            deck_1.PrintDeck();
+            Console.WriteLine("Відсортувати колоду (по очкам)");
+            deck_1.Sort();
             deck_1.PrintDeck();
         }
     }
