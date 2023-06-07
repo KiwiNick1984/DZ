@@ -34,6 +34,7 @@ namespace DZ_4
             if (repkaPower <= pullPower)
             {
                 Console.WriteLine("Репка поддалась!");
+
                 return true;
             }
             else
