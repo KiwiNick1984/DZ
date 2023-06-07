@@ -34,17 +34,14 @@ namespace DZ_4
             Console.Clear();
             Console.WriteLine("Дед тянет репку!");
             _seizedRepka = SelectGardenArea();
-            if(_seizedRepka?.ToPull(_dedPower) ?? false)
-            {
+            if(_seizedRepka?.ToPull(_dedPower) ?? false) {
                 _garden.DeleteRepka(_seizedRepka);
-            }
-            else
-            {
+                Console.WriteLine("Нажмите Enter для проболжения.");
+                Console.ReadLine();
+            } else {
                 if(this is Babka babka)
-                { babka.PullTheRepka(); }
+                    babka.PullTheRepka();
             }
-            Console.WriteLine("Нажмите Enter для проболжения.");
-            Console.ReadLine();
         }
         private Repka SelectGardenArea()      //Выбор участка с репкой и получить/не_получить репку
         {
