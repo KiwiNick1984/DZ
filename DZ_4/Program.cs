@@ -10,7 +10,7 @@ namespace DZ_4
     {        
         static void Main(string[] args)
         {
-            Ded ded = new Ded();
+            Ded ded = new Babka();
             ded.plantRepka(); 
             ded.plantRepka();
             ded.BoostTheRepka();
