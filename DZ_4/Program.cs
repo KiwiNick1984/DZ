@@ -15,6 +15,7 @@ namespace DZ_4
             ded.plantPowerfulRepka();
             ded.plantRepka();
             Console.ReadLine();
+
             ded.BoostTheRepka();
             ded.PullTheRepka();
         }
