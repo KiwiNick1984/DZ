@@ -29,7 +29,7 @@ namespace DZ_4
             Console.WriteLine("Нажмите Enter для проболжения.");
             Console.ReadLine();
         }
-        public void PullTheRepka()
+        public void PullTheRepka()              //Тянем репку
         {
             Console.Clear();
             Console.WriteLine("Тянем репку!");
