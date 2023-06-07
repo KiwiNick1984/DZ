@@ -11,8 +11,8 @@ namespace DZ_4
         static void Main(string[] args)
         {
             Ded ded = new Ded();
-            //ded.plantRepka(); 
-            //ded.plantRepka();
+            ded.plantRepka(); 
+            ded.plantRepka();
             ded.BoostTheRepka();
             ded.PullTheRepka();
             //Console.WriteLine(ded.SelectGardenArea());
