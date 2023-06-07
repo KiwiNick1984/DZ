@@ -9,8 +9,8 @@ namespace DZ_4
 {
     internal class Ded
     {
-        private int _dedPower;   //Дедова мощь
-        private Garden _garden;  //Дедов сад
+        protected int _dedPower;   //Дедова мощь
+        protected Garden _garden;  //Дедов сад
         protected Repka _seizedRepka;    //Схваченная репка
         public Ded() {
             _dedPower = 30;
@@ -32,11 +32,16 @@ namespace DZ_4
         public void PullTheRepka()              //Тянем репку
         {
             Console.Clear();
-            Console.WriteLine("Тянем репку!");
+            Console.WriteLine("Дед тянет репку!");
             _seizedRepka = SelectGardenArea();
             if(_seizedRepka?.ToPull(_dedPower) ?? false)
             {
                 _garden.DeleteRepka(_seizedRepka);
+            }
+            else
+            {
+                if(this is Babka babka)
+                { babka.PullTheRepka(); }
             }
             Console.WriteLine("Нажмите Enter для проболжения.");
             Console.ReadLine();

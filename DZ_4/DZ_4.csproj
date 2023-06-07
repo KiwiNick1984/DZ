@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProRepku\Babka.cs" />
     <Compile Include="ProRepku\Ded.cs" />
     <Compile Include="ProRepku\Garden.cs" />
     <Compile Include="ProRepku\Repka.cs" />
