@@ -6,23 +6,22 @@ using System.Threading.Tasks;
 
 namespace DZ_4
 {
-    internal class Babka : Ded
+    internal class Babka : Vnychka
     {
-        private int _babkaPower;   //Сила бабки
+        protected int _babkaPower;   //Сила бабки
 
         public Babka()
         {
             _babkaPower = 15;
         }
-        public void PullTheRepka()
+        protected bool BabkaPull(Repka repka, int power)
         {
             Console.WriteLine("Дед и бабка тянет репку!");
-            if (_seizedRepka?.ToPull(_dedPower + _babkaPower) ?? false)
-            {
-                _garden.DeleteRepka(_seizedRepka);
+            if (repka.ToPull(power + _babkaPower)) {
+                return true;
+            } else {
+                return VnychkaPull(repka, power + _babkaPower);
             }
-            Console.WriteLine("Нажмите Enter для проболжения.");
-            Console.ReadLine();
         }
     }
 }

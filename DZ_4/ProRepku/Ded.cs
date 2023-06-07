@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DZ_4
 {
-    internal class Ded
+    internal class Ded : Babka
     {
-        protected int _dedPower;   //Дедова мощь
-        protected Garden _garden;  //Дедов сад
-        protected Repka _seizedRepka;    //Схваченная репка
+        protected int _dedPower;        //Дедова мощь
+        protected Garden _garden;       //Дедов сад
+        protected Repka _seizedRepka;   //Схваченная репка
         public Ded() {
             _dedPower = 30;
             _garden = new Garden();
@@ -29,7 +29,7 @@ namespace DZ_4
             Console.WriteLine("Нажмите Enter для проболжения.");
             Console.ReadLine();
         }
-        public void PullTheRepka()              //Тянем репку
+        public void DedPull()                   //Тянем
         {
             Console.Clear();
             Console.WriteLine("Дед тянет репку!");
@@ -39,8 +39,10 @@ namespace DZ_4
                 Console.WriteLine("Нажмите Enter для проболжения.");
                 Console.ReadLine();
             } else {
-                if(this is Babka babka)
-                    babka.PullTheRepka();
+                if(BabkaPull(_seizedRepka, _dedPower))
+                    _garden.DeleteRepka(_seizedRepka);
+                Console.WriteLine("Нажмите Enter для проболжения.");
+                Console.ReadLine();
             }
         }
         private Repka SelectGardenArea()      //Выбор участка с репкой и получить/не_получить репку
@@ -66,5 +68,7 @@ namespace DZ_4
             }
             return repka;
         }
+
+
     }
 }

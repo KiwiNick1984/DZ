@@ -20,10 +20,7 @@ namespace DZ_4
             }
             Console.WriteLine($"Репка посажена на участке #{i + 1}");
         }
-        //private bool CheсkGardenArea(int gardenArea)    //Проверить участок на наличие репки 
-        //{
-        //    return (gardenArea > 0 && gardenArea <= _garden.Count && _garden[gardenArea - 1] != null);
-        //}
+
         public bool PrintGarden()       //Состояние сада на экран
         {
             bool thereIsRepka = false;
@@ -52,7 +49,7 @@ namespace DZ_4
         {
             for (int i = 0; i < _garden.Count; i++)
             {
-                if (_garden[i].GetHashCode() == repka.GetHashCode())
+                if ((_garden[i]?.GetHashCode() ?? 0) == repka.GetHashCode())
                     _garden[i] = null;
             }
         }
