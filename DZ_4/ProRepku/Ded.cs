@@ -9,78 +9,60 @@ namespace DZ_4
 {
     internal class Ded
     {
-        private int dedPower = 30;          //Дедова мощь
-        List<Repka> garden = new List<Repka>();       
+        private int _dedPower;   //Дедова мощь
+        private Garden _garden;  //Дедов сад
+        protected Repka _seizedRepka;    //Схваченная репка
         public Ded() {
+            _dedPower = 30;
+            _garden = new Garden();
         }
-        public void plantRepka()            //Посадить репку на пустой участок
+        public void plantRepka(int powr = 30)   //Посадить репку на пустой участок
         {
-            int i;
-            for (i = 0; i < garden.Count; i++) {
-                garden[i] = garden[i] ?? new Repka();
-            }
-            if (i == garden.Count)
-                garden.Add(new Repka());
-            Console.WriteLine($"Репка посажена на участке #{i + 1}");
+            _garden.PlantRepka(powr);
         }
-        public void plantPowerfulRepka()    //Посадить мощную репку на пустой участок
+        public void BoostTheRepka()             //Удобрить репку
         {
-            int i;
-            for (i = 0; i < garden.Count; i++) {
-                garden[i] = garden[i] ?? new Repka(40);
-            }
-            if (i == garden.Count)
-                garden.Add(new Repka(40));
-            Console.WriteLine($"Репка посажена на участке #{i + 1}");
-        }
-        public void BoostTheRepka()         //Удобрить репку
-        {
-            int gardenArea = SelectGardenArea();
-            if(gardenArea>0)
-                garden[gardenArea - 1].Boost();
+            Console.Clear();
+            Console.WriteLine("Удобряем репку");
+            _seizedRepka = SelectGardenArea();
+            _seizedRepka?.Boost();
+            Console.WriteLine("Нажмите Enter для проболжения.");
+            Console.ReadLine();
         }
         public void PullTheRepka()
         {
-            int gardenArea = SelectGardenArea();
-            if (gardenArea > 0)
+            Console.Clear();
+            Console.WriteLine("Тянем репку!");
+            _seizedRepka = SelectGardenArea();
+            if(_seizedRepka?.ToPull(_dedPower) ?? false)
             {
-                if (garden[gardenArea - 1].ToPull(dedPower))
-                    garden[gardenArea - 1] = null;
+                _garden.DeleteRepka(_seizedRepka);
             }
-
-            //bool thereIsRepka = false;
-
-            //Console.Write("Номера участков с репкой:");
-            //for (int i = 0; i < garden.Count; i++) {
-            //    if(garden[i] != null)
-            //        Console.Write($" {i+1},");
-            //}
-            //Console.Write("\nИз какого участка тянуть? -> ");
+            Console.WriteLine("Нажмите Enter для проболжения.");
+            Console.ReadLine();
         }
-        private int SelectGardenArea()      //Выбор участка с репкой
+        private Repka SelectGardenArea()      //Выбор участка с репкой и получить/не_получить репку
         {
             int gardenArea = 0;
-            bool thereIsRepka = false;
+            Repka repka;
             while (true) {
-                Console.Clear();
-                Console.Write("Номера участков с репкой:");
-                for (int i = 0; i < garden.Count; i++) {
-                    if (garden[i] != null) {
-                        Console.Write($" {i + 1},");
-                        thereIsRepka = true;
-                    }
-                }
-                if (!thereIsRepka) {
-                    Console.WriteLine("\nДед или забы посадить репку, или выдернул все!");
-                    return 0;
+                if (!_garden.PrintGarden()){
+                    repka = null;
+                    break;
                 }
                 Console.Write("\nВыбери участок -> ");
                 gardenArea = Convert.ToInt32(Console.ReadLine());
-                if (gardenArea > 0 && gardenArea <= garden.Count) {
-                    if (garden[gardenArea - 1] != null)
-                        return gardenArea;
+                repka = _garden.GetRepka(gardenArea);
+                if (repka != null) {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Дед не нашел на этом участке репку.");
+                    Console.WriteLine("Надо напрячь старое зрение и посмотреть ещё.");
                 }
             }
+            return repka;
         }
     }
 }
