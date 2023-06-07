@@ -10,12 +10,13 @@ namespace DZ_4
     {        
         static void Main(string[] args)
         {
-            Ded ded = new Babka();
-            ded.plantRepka(); 
-            ded.plantRepka();
-            ded.BoostTheRepka();
-            ded.PullTheRepka();
-            //Console.WriteLine(ded.SelectGardenArea());
+            Ded ded = new Ded();
+            ded.plantRepka(30); 
+            ded.plantRepka(40);
+            ded.plantRepka(50);
+            ded.plantRepka(70);
+            ded.DedPull();
+            ded.DedPull();
         }
     }
 }
