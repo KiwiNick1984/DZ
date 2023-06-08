@@ -10,12 +10,7 @@ namespace DZ_4
     {        
         static void Main(string[] args)
         {
-            Ded ded = new Ded();
-            ded.plantRepka(30); 
-            ded.plantRepka(40);
-            ded.plantRepka(50);
-            ded.plantRepka(70);
-            ded.DedPull();
+            Ded ded = new Ded(50); //сила деда = 30, 50 - сила растения
             ded.DedPull();
         }
     }
