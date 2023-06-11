@@ -46,6 +46,7 @@ namespace DZ_4
         public void CountToClient(int clientID, int countNumber) //Привязать счет к клиенту
         {
             GetClient(clientID)?.NewCount(GetCount(countNumber));
+            _history.Add(new HistoryLine(DateTime.Now, Operation.AddToClient, 0.0, countNumber, clientID));
         }
 
         public void PutMoney(int countNumber, double summ) //Положить деньги на счет
@@ -87,7 +88,7 @@ namespace DZ_4
                             Console.WriteLine("Создан.");
                             break;
                         case Operation.AddToClient:
-                            Console.WriteLine("Привязан к киенту.");
+                            Console.WriteLine("Привязан к киенту " + GetClient(line._destinationCountNumber)._lastName);
                             break;
                         case Operation.Put:
                             Console.WriteLine("Пополнен на " + line._summ + "грн.");
