@@ -10,7 +10,7 @@ namespace DZ_4
     {
         private Node _root;
         private Node _last;
-        private int _count;
+        private int _count = 0;
 
         public int Count => _count;
         public object First => _root;
@@ -26,7 +26,7 @@ namespace DZ_4
         }
         public void AddLast(object inObj)
         {
-            if (inObj == null)
+            if (_root == null)
                 _root = new Node(inObj);
             Node current = _root;
             while (current._next != null)

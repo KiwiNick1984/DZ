@@ -116,7 +116,10 @@ namespace DZ_4
 
             ///////////////////////////3_OneWayList//////////////////////////////
             OneWayList oneWayList = new OneWayList();
-
+            oneWayList.Add(35);
+            oneWayList.Add(3.5);
+            oneWayList.Add(true);
+            oneWayList.Add(1650);
         }
     }
 }
