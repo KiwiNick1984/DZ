@@ -12,6 +12,7 @@ namespace DZ_4
         public int _countNumber;            //Номер счета
         public Money _balance = new Money();//Баланс
         public double _bid;                 //Ставка
+        public Client _client;              //Клиент
 
         public Count(double bid = 12.4)
         {
