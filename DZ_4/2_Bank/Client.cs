@@ -20,9 +20,14 @@ namespace DZ_4
             _firstName = firstName;
             _lastName = lastName;
         }
-        public void NewCount(Count count) //Добавить счет
+        public bool NewCount(Count count) //Добавить счет
         {
-            _counts.Add(count);
+            if (count != null)
+            {
+                _counts.Add(count);
+                return true;
+            }
+            return false;
         }
         public void GetBalance() //Получить баланс
         {

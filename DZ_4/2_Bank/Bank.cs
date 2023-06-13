@@ -35,18 +35,26 @@ namespace DZ_4
         { 
             foreach (Count count in _counts)
             {
-                Console.WriteLine("Номер счета " + count._countNumber);
+                Console.WriteLine("Номер счета: " + count._countNumber);
                 count._balance.Print();
-                Console.WriteLine("Ставка " + count._bid);
+                Console.WriteLine("Ставка: " + count._bid);
+                Console.WriteLine("Владелец: " + count._client._firstName + " " + count._client._lastName);
                 Console.WriteLine();
             }
             
         }
 
-        public void CountToClient(int clientID, int countNumber) //Привязать счет к клиенту
+        public bool CountToClient(int clientID, int countNumber) //Привязать счет к клиенту
         {
-            GetClient(clientID)?.NewCount(GetCount(countNumber));
+            Client client = GetClient(clientID);
+            Count count = GetCount(countNumber);
+            if(client == null)
+                return false;
+            if(!client.NewCount(count))
+                return false;
+            count._client = client;
             _history.Add(new HistoryLine(DateTime.Now, Operation.AddToClient, 0.0, countNumber, clientID));
+            return true;
         }
 
         public void PutMoney(int countNumber, double summ) //Положить деньги на счет
@@ -54,10 +62,15 @@ namespace DZ_4
             GetCount(countNumber)?.PutMoney(summ);
             _history.Add(new HistoryLine(DateTime.Now, Operation.Put, summ, countNumber));
         }
-        public void WithdrawMoney(int countNumber, double summ) //Снять деньги со счета
+        public bool WithdrawMoney(int countNumber, double summ) //Снять деньги со счета
         {
-            GetCount(countNumber)?.WithdrawMoney(summ);
-            _history.Add(new HistoryLine(DateTime.Now, Operation.Withdraw, summ, countNumber));
+            if(GetCount(countNumber)._balance >= summ)
+            {
+                GetCount(countNumber)?.WithdrawMoney(summ);
+                _history.Add(new HistoryLine(DateTime.Now, Operation.Withdraw, summ, countNumber));
+                return true;
+            }
+            return false;
         }
         public void TransferMonu(int sourseCountNumber, int destinationCountNumber, double summ) //Перевод со счета на счет
         {            

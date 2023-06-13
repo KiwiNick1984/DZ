@@ -43,18 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bank\Bank.cs" />
-    <Compile Include="Bank\Client.cs" />
-    <Compile Include="Bank\Money.cs" />
-    <Compile Include="Bank\Count.cs" />
-    <Compile Include="ProRepku\Family\Babka.cs" />
-    <Compile Include="ProRepku\Family\Ded.cs" />
-    <Compile Include="ProRepku\Plants\Beet.cs" />
-    <Compile Include="ProRepku\Plants\Plant.cs" />
-    <Compile Include="ProRepku\Plants\Repka.cs" />
+    <Compile Include="1_RepkaStory\Personage\Babka.cs" />
+    <Compile Include="1_RepkaStory\Personage\Ded.cs" />
+    <Compile Include="1_RepkaStory\Personage\Personage.cs" />
+    <Compile Include="1_RepkaStory\Personage\Vnychka.cs" />
+    <Compile Include="1_RepkaStory\Plants\Beet.cs" />
+    <Compile Include="1_RepkaStory\Plants\Plant.cs" />
+    <Compile Include="1_RepkaStory\Plants\Repka.cs" />
+    <Compile Include="2_Bank\Bank.cs" />
+    <Compile Include="2_Bank\Client.cs" />
+    <Compile Include="2_Bank\Money.cs" />
+    <Compile Include="2_Bank\Count.cs" />
+    <Compile Include="3_Struct\OneWayList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProRepku\Family\Vnychka.cs" />
+    <Compile Include="3_Struct\ListStruct.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
