@@ -74,7 +74,7 @@ namespace DZ_4
             else
             {
                 if (_right != null)
-                    return _left.Contains(inInt);
+                    return _right.Contains(inInt);
                 else
                     return false;
             }
@@ -82,19 +82,12 @@ namespace DZ_4
 
         public int[] ToArray()
         {
-            int[] tempArr;
             int[] leftArr = new int[0];
             int[] rightArr = new int[0];
             int[] returnArr;
             if (_left != null)
             {
-                tempArr = _left.ToArray();
-                leftArr = new int[tempArr.Length+1];
-                leftArr[0] = _data;
-                for (int i = 1; i < leftArr.Length; i++)
-                {
-                    leftArr[i] = tempArr[i - 1];
-                }
+                leftArr = _left.ToArray();
             }
             if (_right != null)
             {
@@ -104,15 +97,16 @@ namespace DZ_4
             {
                 return new int[] { _data };
             }
-            returnArr = new int[leftArr.Length + rightArr.Length];
+            returnArr = new int[leftArr.Length + rightArr.Length + 1];
             for (int i = 0; i < leftArr.Length; i++)
             {
                 returnArr[i] = leftArr[i];
             }
-            for (int i = leftArr.Length; i < returnArr.Length; i++)
+            for (int i = leftArr.Length; i < returnArr.Length-1; i++)
             {
-                returnArr[i] = rightArr[i-rightArr.Length];
+                returnArr[i] = rightArr[i-leftArr.Length];
             }
+            returnArr[returnArr.Length-1] = _data;
             return returnArr;
         }
     }
