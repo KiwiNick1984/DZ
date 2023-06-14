@@ -114,12 +114,136 @@ namespace DZ_4
             //listStruct.Reverse();
             //listStruct.Print();
 
-            ///////////////////////////3_OneWayList//////////////////////////////
-            OneWayList oneWayList = new OneWayList();
-            oneWayList.Add(35);
-            oneWayList.Add(3.5);
-            oneWayList.Add(true);
-            oneWayList.Add(1650);
+            /////////////////////////////3_OneWayList//////////////////////////////
+            //Console.Clear();
+            //Console.WriteLine("Односвязный список");
+            //OneWayList oneWayList = new OneWayList();
+            //oneWayList.Add(35);
+            //oneWayList.Add(3.5);
+            //oneWayList.Add(true);
+            //oneWayList.Add(1650);
+            //oneWayList.Print();
+
+            //Console.WriteLine($"\noneWayList.AddFirst(\"string!\");");
+            //oneWayList.AddFirst("string!");
+            //oneWayList.Print();
+
+            //Console.WriteLine($"\noneWayList.Insert(1, false)");
+            //oneWayList.Insert(1, false);
+            //oneWayList.Print();
+
+            //Console.WriteLine($"\noneWayList.Clear()");
+            //oneWayList.Clear();
+
+            //Console.WriteLine();
+            //oneWayList.Add(35);
+            //oneWayList.Add(3.5);
+            //oneWayList.Add(false);
+            //oneWayList.Add(1650);
+            //oneWayList.Print();
+
+            //Console.WriteLine($"\noneWayList.Contains(1650)");
+            //Console.WriteLine(oneWayList.Contains(1650));
+            //Console.WriteLine($"oneWayList.Contains(true)");
+            //Console.WriteLine(oneWayList.Contains(true));
+
+            //Console.WriteLine("\noneWayList.ToArray()");
+            //object[] objArr = oneWayList.ToArray();
+            //foreach (var item in objArr)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //Console.WriteLine($"\noneWayList.Count");
+            //Console.WriteLine(oneWayList.Count);
+
+            ///////////////////////////////3_TwoWaysList//////////////////////////////
+            //Console.Clear();
+            //Console.WriteLine("Двусвязный список");
+            //TwoWaysList twoWaysList = new TwoWaysList();
+            //twoWaysList.AddLast(35);
+            //twoWaysList.AddLast(3.5);
+            //twoWaysList.AddLast(true);
+            //twoWaysList.AddLast(1650);
+            //twoWaysList.Print();
+
+            //Console.WriteLine($"\ntwoWaysList.AddFirst(\"string!\");");
+            //twoWaysList.AddFirst("string!");
+            //twoWaysList.Print();
+
+            //Console.WriteLine($"\ntwoWaysList.RemoveFirst();");
+            //twoWaysList.RemoveFirst();
+            //twoWaysList.Print();
+
+            //Console.WriteLine($"\ntwoWaysList.RemoveLast();");
+            //twoWaysList.RemoveLast();
+            //twoWaysList.Print();
+
+            //Console.WriteLine($"\ntwoWaysList.Contains(1650)");
+            //Console.WriteLine(twoWaysList.Contains(1650));
+            //Console.WriteLine($"twoWaysList.Contains(true)");
+            //Console.WriteLine(twoWaysList.Contains(true));
+
+            //Console.WriteLine("\ntwoWaysList.ToArray()");
+            //object[] objArr = twoWaysList.ToArray();
+            //foreach (var item in objArr)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //Console.WriteLine($"\ntwoWaysList.Clear()");
+            //twoWaysList.Clear();
+
+            ///////////////////////////////3_MyQueue//////////////////////////////
+            //Console.Clear();
+            //Console.WriteLine("Очередь");
+            //MyQueue queue = new MyQueue();
+            //queue.Enqueue(35);
+            //queue.Enqueue(3.5);
+            //queue.Enqueue(true);
+            //queue.Enqueue(1650);
+            //queue.Print();
+
+            //Console.WriteLine($"\nqueue.Dequeue()");
+            //Console.WriteLine(queue.Dequeue());
+
+            //Console.WriteLine($"queue.Contains(1650)");
+            //Console.WriteLine(queue.Contains(1650));
+            //Console.WriteLine($"queue.Contains(30)");
+            //Console.WriteLine(queue.Contains(30));
+
+            //Console.WriteLine();
+            //queue.Print();
+            //Console.WriteLine($"queue.Peek()");
+            //Console.WriteLine(queue.Peek());
+
+            //Console.WriteLine("\nqueue.ToArray()");
+            //object[] objArr = queue.ToArray();
+            //foreach (var item in objArr)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //Console.WriteLine($"\nqueue.Clear()");
+            //queue.Clear();
+
+            ///////////////////////////////3_MyTree//////////////////////////////
+            MyTree tree = new MyTree();
+            tree.Add(100);
+            tree.Add(50);
+            tree.Add(40);
+            tree.Add(60);
+            tree.Add(140);
+            tree.Add(135);
+            tree.Add(145);
+            tree.Add(160);
+
+            Console.WriteLine("\ntree.Contains(160)");
+            Console.WriteLine(tree.Contains(160));
+            Console.WriteLine("tree.Contains(55)");
+            Console.WriteLine(tree.Contains(55));
+
+            int[] arr = tree.ToArray(); 
         }
     }
 }
