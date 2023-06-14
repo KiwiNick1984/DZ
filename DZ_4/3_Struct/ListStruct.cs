@@ -55,11 +55,11 @@ namespace DZ_4
             {
                 throw new Exception("ОШИБКА! Выход за пределы диапазона!");
             }
-            for (int i = index; i < _size; i++)
+            for (int i = index; i < _size-1; i++)
             {
                 _mainObjects[i] = _mainObjects[i + 1];
             }
-            _mainObjects[_size] = default(object);
+            _mainObjects[_size-1] = default(object);
             _size--;
         }
         public void Clear()
@@ -88,10 +88,10 @@ namespace DZ_4
             }
             return -1;
         }
-        public object ToArray()
+        public object[] ToArray()
         {
             object[] array = new object[_size];
-            for (int i = 0; i <= _size; i++)
+            for (int i = 0; i < _size; i++)
             {
                 array[i] = _mainObjects[i];
             }

@@ -54,7 +54,11 @@
     <Compile Include="2_Bank\Client.cs" />
     <Compile Include="2_Bank\Money.cs" />
     <Compile Include="2_Bank\Count.cs" />
+    <Compile Include="3_Struct\MyQueue.cs" />
+    <Compile Include="3_Struct\MyStack.cs" />
+    <Compile Include="3_Struct\MyTree.cs" />
     <Compile Include="3_Struct\OneWayList.cs" />
+    <Compile Include="3_Struct\TwoWaysList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="3_Struct\ListStruct.cs" />
