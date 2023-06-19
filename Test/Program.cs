@@ -9,4 +9,9 @@ foreach (var item in ee)
     Console.WriteLine(item);
 }
 
+foreach (var item in ee)
+{
+    Console.WriteLine(item);
+}
+
 Console.WriteLine("Hello, World!");

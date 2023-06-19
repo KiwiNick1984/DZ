@@ -18,7 +18,8 @@ namespace Test
         }
         public void Reset() => position = -1;
         public bool MoveNext() => ++position < Arr.Length;
-        IEnumerator IEnumerable.GetEnumerator() => this;
+        public IEnumerator GetEnumerator() => this;
+        //IEnumerator IEnumerable.GetEnumerator() => this;
 
         public object Current
         {
