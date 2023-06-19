@@ -64,8 +64,6 @@ namespace DZ_8
 
             public bool MoveNext()
             {
-                MyStack localList = _list;
-
                 if (_index < _list.Count)
                 {
                     _current = _list[_index++];
