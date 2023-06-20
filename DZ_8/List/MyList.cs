@@ -8,58 +8,6 @@ using System.Threading.Tasks;
 
 namespace DZ_8
 {
-    internal static class Mylinq
-    {
-        class MySkipEnumrable : IMyEnumerable
-        {
-            private IMyEnumerable _enumerable;
-            private int _count;
-
-            public MySkipEnumrable(IMyEnumerable enumerable, int count)
-            {
-                _enumerable = enumerable;
-                _count = count;
-            }
-
-            public IMyEnumerator GetEnumerator() => new MySkipEnumerator(_enumerable.GetEnumerator(), _count);
-        }
-        class MySkipEnumerator : IMyEnumerator
-        {
-            public IMyEnumerator _enumerator;
-            public int _count;
-
-            public MySkipEnumerator(IMyEnumerator enumerator, int count)
-            {
-                _enumerator = enumerator;
-                _count = count;
-            }
-
-            public object Current => _enumerator.Current;
-
-            public bool MoveNext()
-            {
-                for(; _count>0; _count--)
-                    _enumerator.MoveNext();        
-                return _enumerator.MoveNext();
-            }
-
-            public void Reset()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        //public static IMyEnumerable MyFilter(this IMyEnumerable enumerabl, Predicate<object> predicate)
-        //{
-
-        //}
-
-        public static IMyEnumerable MySkip(this IMyEnumerable enumerable, int count)
-        {
-            return new MySkipEnumrable(enumerable, count);
-        }
-    }
-
     internal class MyList : IMyList
     {
         private object[] _items;
@@ -178,7 +126,6 @@ namespace DZ_8
             }
         }
 
-
         private void EnsureCapacity(int min)
         {
             if (_items.Length < min)
@@ -216,7 +163,7 @@ namespace DZ_8
                 _current = default(object);
             }
 
-            public object Current => _current;
+            public object Current => _current!;
 
             public bool MoveNext()
             {

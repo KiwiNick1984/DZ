@@ -33,4 +33,13 @@ namespace DZ_8
         bool MoveNext();
         void Reset();
     }
+
+    public interface IOneWayNode
+    {
+        IOneWayNode Next { get; set; }
+    }
+    public interface ITowWayNode
+    {
+        IOneWayNode Prev { get; set; }
+    }
 }
