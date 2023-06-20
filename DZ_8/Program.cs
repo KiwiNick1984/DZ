@@ -1,6 +1,4 @@
-﻿//List<int> list = new List<int> { 1, 2, 3 };
-
-using DZ_8;
+﻿using DZ_8;
 using System.Collections.Generic;
 
 //MyList myList = new MyList();
@@ -8,7 +6,46 @@ using System.Collections.Generic;
 //myList.Add(52);
 //myList.Add(4.8);
 //myList.Add(true);
+//myList.Add("str");
+//myList.Add(52);
+//myList.Add(4.8);
+//myList.Add(true);
+
+OneWayList oneWayList = new OneWayList();
+oneWayList.AddLast("str");
+oneWayList.AddLast(52);
+oneWayList.AddLast(4.8);
+oneWayList.AddLast(true);
+oneWayList.AddLast("str");
+oneWayList.AddLast(52);
+oneWayList.AddLast(4.8);
+oneWayList.AddLast(true);
+
+//foreach (var item in oneWayList)
+//{
+//    Console.WriteLine(item);
+//}
+
+TowWaysList towWaysList = new TowWaysList();
+towWaysList.Add("str");
+towWaysList.Add(52);
+towWaysList.Add(4.8);
+towWaysList.Add(true);
+towWaysList.Add("str");
+towWaysList.Add(52);
+towWaysList.Add(4.8);
+towWaysList.Add(true);
+towWaysList.Clear();
+foreach (var item in towWaysList)
+{
+    Console.WriteLine(item);
+}
+
+
+
 //MyStack stack = new MyStack();
+
+
 //stack.Push(1);
 //stack.Push(2);
 //stack.Push(3);
@@ -19,28 +56,3 @@ using System.Collections.Generic;
 
 ////Console.WriteLine(myList[2]);
 //Console.WriteLine("Hello, World!");
-
-
-GetBike getBike = (string color) => new SportBike(color);
-Bike MyBike = getBike("Green");
-MyBike.GetColor();
-Console.WriteLine();
-
-
-
-public class Bike
-{
-    public string _color;
-    public Bike(string color) => _color = color;
-    public virtual void GetColor() => Console.WriteLine($"Color bike is {_color}");
-}
-
-public class SportBike : Bike
-{
-    public SportBike(string color) : base(color)
-    { }
-    public override void GetColor() => Console.WriteLine($"Color sportbike is {_color}");
-
-}
-
-delegate Bike GetBike(string color);
