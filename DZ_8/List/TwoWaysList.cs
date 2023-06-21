@@ -10,44 +10,31 @@ namespace DZ_8
 {
     internal class TowWaysList : OneWayList
     {
-        public override void AddFirst(object inObj)
+        protected override OneWayNode CreateNode(object data, OneWayNode next = null, OneWayNode prev = null)
         {
-            IOneWayNode tempNode = new TowWayNode(inObj);
-            tempNode.Next = _head;
-            _head = tempNode;
-            _count++;
+            TowWayNode newDode = new TowWayNode(data, next, prev);
+            if (next != null)
+                ((TowWayNode)next).Prev = newDode;
+            if (prev != null)
+                prev.Next = newDode;                
+            return newDode; 
         }
-        public override void AddLast(object inObj)
+        protected override void DeleteNode(OneWayNode current, OneWayNode next = null, OneWayNode prev = null)
         {
-            if (_head == null)
-            {
-                _head = new TowWayNode(inObj);
-                _tail = _head;
-            }
-            else
-            {
-                IOneWayNode current = _head;
-                while (current.Next != null)
-                {
-                    current = current.Next;
-                }
-                _tail = new TowWayNode(inObj);
-                ((ITowWayNode)_tail).Prev = current;
-                current.Next = _tail;
-            }
-            _count++;
+            current.Next = null;
+            current.Data = null;
+            ((TowWayNode)current).Prev = null;
         }
     }
-    class TowWayNode : OneWayNode, ITowWayNode
+    class TowWayNode : OneWayNode
     {
-        private IOneWayNode _prev;
-        public IOneWayNode Prev
+        private OneWayNode _prev;
+        public OneWayNode Prev
         {
             get { return _prev; }
             set { _prev = value; }
         }
-
-        public TowWayNode(object inObjData, IOneWayNode prev = null, IOneWayNode next = null) : base(inObjData, next)
+        public TowWayNode(object data, OneWayNode next = null, OneWayNode prev = null) : base(data, next)
         {
             _prev = prev;
         }
