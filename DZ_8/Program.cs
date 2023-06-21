@@ -12,34 +12,33 @@ using System.Collections.Generic;
 //myList.Add(true);
 
 OneWayList oneWayList = new OneWayList();
-oneWayList.AddLast("str");
-oneWayList.AddLast(52);
-oneWayList.AddLast(4.8);
-oneWayList.AddLast(true);
-oneWayList.AddLast("str");
-oneWayList.AddLast(52);
-oneWayList.AddLast(4.8);
-oneWayList.AddLast(true);
-
-//foreach (var item in oneWayList)
-//{
-//    Console.WriteLine(item);
-//}
-
-TowWaysList towWaysList = new TowWaysList();
-towWaysList.Add("str");
-towWaysList.Add(52);
-towWaysList.Add(4.8);
-towWaysList.Add(true);
-towWaysList.Add("str");
-towWaysList.Add(52);
-towWaysList.Add(4.8);
-towWaysList.Add(true);
-towWaysList.Clear();
-foreach (var item in towWaysList)
+oneWayList.Add("str");
+oneWayList.Add(52);
+oneWayList.Add(4.8);
+oneWayList.Add(true);
+oneWayList.AddFirst("AddFirst");
+oneWayList.Insert(2, 300);
+Console.WriteLine(oneWayList.Contains(52));
+Console.WriteLine();
+foreach (var item in oneWayList)
 {
     Console.WriteLine(item);
 }
+
+
+//TowWaysList towWaysList = new TowWaysList();
+//towWaysList.Add("str");
+//towWaysList.Add(52);
+//towWaysList.Add(4.8);
+//towWaysList.Add(true);
+//towWaysList.AddFirst("AddFirst");
+//towWaysList.Insert(2, 300);
+//Console.WriteLine(towWaysList.Contains(4.9));
+//Console.WriteLine();
+//foreach (var item in towWaysList)
+//{
+//    Console.WriteLine(item);
+//}
 
 
 

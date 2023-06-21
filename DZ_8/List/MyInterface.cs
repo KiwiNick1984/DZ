@@ -37,9 +37,12 @@ namespace DZ_8
     public interface IOneWayNode
     {
         IOneWayNode Next { get; set; }
+        Object Data { get; set; }
     }
     public interface ITowWayNode
     {
         IOneWayNode Prev { get; set; }
+        IOneWayNode Next { get; set; }
+        Object Data { get; set; }
     }
 }

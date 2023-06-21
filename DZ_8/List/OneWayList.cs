@@ -10,131 +10,125 @@ namespace DZ_8
 { 
     internal class OneWayList : IMyCollection
     {
-        protected IOneWayNode _head;
-        protected IOneWayNode _tail;
-        protected int _count = 0;
+        protected OneWayNode _head;
+        protected OneWayNode _tail;
+        protected int _count;
 
         public int Count => _count;
         public object First => _head;
         public object Last => _tail;
 
+        public OneWayList()
+        {
+            _head = null;
+            _tail = null;
+            _count = 0;
+        }
+
         public void Add(object inObj)
         {
             AddLast(inObj);
         }
-        public virtual void AddFirst(object inObj)
+        public virtual void AddFirst(object data)
         {
-            IOneWayNode tempNode = new OneWayNode(inObj);
-            tempNode.Next = _head;
-            _head = tempNode;
+            _head = CreateNode(data: data, next: _head);
             _count++;
         }
-
-        public virtual void AddLast(object inObj)
+        public virtual void AddLast(object data)
         {
             if (_head == null)
             {
-                _head = new OneWayNode(inObj);
+                _head = CreateNode(data: data);
                 _tail = _head;
             }
             else 
             {
-                IOneWayNode current = _head;
+                OneWayNode current = _head;
                 while (current.Next != null)
                 {
                     current = current.Next;
                 }
-                _tail = new OneWayNode(inObj);
-                current.Next = _tail;
+                _tail = CreateNode(data: data, prev: current);
             }
             _count++;
         }
+        public void Insert(int index, object data)
+        {
+            if ((uint)index > (uint)_count)
+            {
+                throw new Exception("ОШИБКА! Insert выход за пределы диапазона!");
+            }
 
-        //public void Insert(int index, object inObj)
-        //{
-        //    if ((uint)index > (uint)_count)
-        //    {
-        //        throw new Exception("ОШИБКА! выход за пределы диапазона!");
-        //    }
-
-        //    OneWayNode current = _head;
-        //    OneWayNode tempNode = new OneWayNode(inObj);
-
-        //    if (index == _count)
-        //    {
-        //        _tail._next = tempNode;
-        //        _tail = tempNode;
-        //    }
-        //    else if (index == 0)            
-        //    {
-        //        tempNode._next = _head;
-        //        _head = tempNode;
-        //    }
-        //    else
-        //    {
-        //        for (int i = 0; i < _count; i++)
-        //        {
-        //            if (i == index - 1)
-        //            {
-        //                tempNode._next = current._next;
-        //                current._next = tempNode;
-        //                break;
-        //            }
-        //            current = current._next;
-        //        }
-        //    }
-        //    _count++;
-        //}
+            if (index == _count)
+            {
+                AddLast(data);
+            }
+            else if (index == 0)
+            {
+                AddFirst(data);
+            }
+            else
+            {
+                OneWayNode current = _head;
+                for (int i = 0; i < _count; i++)
+                {
+                    if (i == index-1)
+                    {
+                        CreateNode(data: data, next: current.Next, prev: current);
+                        break;
+                    }
+                    current = current.Next;
+                }
+            }
+            _count++;
+        }
         public void Clear()
         {
-            OneWayNode currentNode = (OneWayNode)_head;
-            OneWayNode tempNode = (OneWayNode)_head;
+            OneWayNode currentNode = _head;
             while (currentNode != null)
             {
-                tempNode = currentNode;
-                currentNode = (OneWayNode)currentNode.Next;
-                tempNode._data = null;
-                tempNode.Next = null;
-                if(tempNode is TowWayNode tempNodeTowWay)
-                    tempNodeTowWay.Prev = null;
+                OneWayNode tempNode = currentNode;
+                currentNode = currentNode.Next;
+                DeleteNode(tempNode);
             }
             _head = null;
             _tail = null;
             _count = 0;
         }
-        //public bool Contains(object inObj)
-        //{
-        //    OneWayNode current = _head;
-        //    while (current?._data != null)
-        //    {
-        //        if(current._data.Equals(inObj))
-        //            return true;
-        //        current = current._next;
-        //    }
-        //    return false;
-        //}
-        //public object[] ToArray()
-        //{
-        //    object[] array = new object[_count];
-        //    OneWayNode current = _head;
-        //    for (int i = 0; current?._data != null; i++)
-        //    {
-        //        array[i] = current._data;
-        //        current = current._next;
-        //    }
-        //    return array;
-        //}
-        //public void Print()
-        //{
-        //    OneWayNode current = _head;
-        //    while (true)
-        //    {
-        //        Console.WriteLine(current?._data);
-        //        current = current._next;
-        //        if(current == null)
-        //            break;
-        //    }
-        //}
+        public bool Contains(object inObj)
+        {
+            OneWayNode current = _head;
+            while (current?.Data != null)
+            {
+                if (current.Data.Equals(inObj))
+                    return true;
+                current = current.Next;
+            }
+            return false;
+        }
+        public object[] ToArray()
+        {
+            object[] array = new object[_count];
+            OneWayNode current = _head;
+            for (int i = 0; current?.Data != null; i++)
+            {
+                array[i] = current.Data;
+                current = current.Next;
+            }
+            return array;
+        }
+        protected virtual OneWayNode CreateNode(object data, OneWayNode next = null, OneWayNode prev = null)
+        {
+            OneWayNode newDode = new OneWayNode(data, next);
+            if (prev != null)
+                prev.Next = newDode;
+            return newDode;
+        }
+        protected virtual void DeleteNode(OneWayNode current, OneWayNode next = null, OneWayNode prev = null)
+        {
+            current.Next = null;
+            current.Data = null;
+        }
 
         public IMyEnumerator GetEnumerator() => new Enumerator(this);
         public class Enumerator : IMyEnumerator
@@ -144,42 +138,46 @@ namespace DZ_8
 
             public Enumerator(OneWayList list)
             {
-                _currentNode = (OneWayNode)list?._head;
-                _currentData = _currentNode?._data;
+                _currentNode = list._head;
             }
 
-            public object Current => _currentData!;
+            public object Current => _currentData;
 
             public bool MoveNext()
             {
-                if(_currentNode?._data != null)
+                if(_currentNode?.Data != null)
                 {
-                    _currentData = _currentNode._data;
+                    _currentData = _currentNode.Data;
                     if (_currentNode?.Next != null)
                         _currentNode = (OneWayNode)_currentNode.Next;
                     else
+
                         _currentNode = null;
                     return true;
                 }
                 return false;
             }
-
             public void Reset()
             {
                 throw new NotImplementedException();
             }
         }
     }
-    class OneWayNode : IOneWayNode
+    class OneWayNode
     {
-        private IOneWayNode _next;
-        public IOneWayNode Next
+        private OneWayNode _next;
+        private Object _data;
+        public OneWayNode Next
         {
             get { return _next; }
             set { _next = value; }
+        }        
+        public Object Data
+        {
+            get { return _data; }
+            set { _data = value; }
         }
-        public Object _data;
-        public OneWayNode(object inObjData, IOneWayNode next = null)
+        public OneWayNode(object inObjData, OneWayNode next = null)
         {
             _data = inObjData;
             _next = next;
