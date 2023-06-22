@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DZ_8
 {
-    internal class MyList : IMyList
+    internal class MyList<T> : IMyList<T>, IMyList, IMyCollection
     {
         private object[] _items;
         private int _size;

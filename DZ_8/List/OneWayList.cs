@@ -1,12 +1,4 @@
-﻿using DZ_8;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace DZ_8
+﻿namespace DZ_8
 { 
     internal class OneWayList : IMyCollection
     {

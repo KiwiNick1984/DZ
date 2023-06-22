@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DZ_4
 {
-    internal class MyQueue
+    internal class MyQueue : IMyCollection
     {
         ListStruct listStruct = new ListStruct();
         public int Count => listStruct.Count;
