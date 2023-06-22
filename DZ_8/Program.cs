@@ -26,7 +26,7 @@ Bike MyBike = getBike("Green");
 MyBike.GetColor();
 Console.WriteLine();
 
-
+Stack
 
 public class Bike
 {
