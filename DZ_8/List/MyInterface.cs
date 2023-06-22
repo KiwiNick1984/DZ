@@ -11,18 +11,24 @@ namespace DZ_8
     {
         object this[int index] { get; set; }
         void Add(object value);
-        void Clear();
         bool Contains(object value);
+        void Clear();
         int IndexOf(object value);
         void Insert(int index, object value);
         void Remove(object value);
         void RemoveAt(int index);
     }
+    internal interface IMyList<T>
+    {
+        T this[int index] { get; set; }
+    }
+    //internal interface IMyList
     internal interface IMyCollection : IMyEnumerable
     {
         int Count { get; }
+        void Clear();
+        public object[] ToArray();
     }
-
     internal interface IMyEnumerable
     {
         IMyEnumerator GetEnumerator();
