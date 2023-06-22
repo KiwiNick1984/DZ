@@ -4,8 +4,8 @@ using System.Linq;
 
 var list = new DataStructures.List();
 
-var filtered = list.Skip(3)
-    .FilterAlt(o => ((string)o).EndsWith("C"));
+var filtered = list.Skip(3);
+    //.FilterAlt(o => ((string)o).EndsWith("C"));
 //.Filter(o => ((string)o).StartsWith("A"))
 //;
 

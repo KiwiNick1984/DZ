@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{20268AFD-52AD-40D8-9560-FA4C1FB62121}</ProjectGuid>
+    <ProjectGuid>{FEF559A9-ACA6-4C6A-8764-1EE95D79BBFF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DZ_4</RootNamespace>
-    <AssemblyName>DZ_4</AssemblyName>
+    <RootNamespace>ConsoleApp3</RootNamespace>
+    <AssemblyName>ConsoleApp3</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,26 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="1_RepkaStory\Personage\Babka.cs" />
-    <Compile Include="1_RepkaStory\Personage\Ded.cs" />
-    <Compile Include="1_RepkaStory\Personage\Personage.cs" />
-    <Compile Include="1_RepkaStory\Personage\Vnychka.cs" />
-    <Compile Include="1_RepkaStory\Plants\Beet.cs" />
-    <Compile Include="1_RepkaStory\Plants\Plant.cs" />
-    <Compile Include="1_RepkaStory\Plants\Repka.cs" />
-    <Compile Include="2_Bank\Bank.cs" />
-    <Compile Include="2_Bank\Client.cs" />
-    <Compile Include="2_Bank\Money.cs" />
-    <Compile Include="2_Bank\Count.cs" />
-    <Compile Include="3_Struct\IMyCollection.cs" />
-    <Compile Include="3_Struct\MyQueue.cs" />
-    <Compile Include="3_Struct\MyStack.cs" />
-    <Compile Include="3_Struct\MyTree.cs" />
-    <Compile Include="3_Struct\OneWayList.cs" />
-    <Compile Include="3_Struct\TwoWaysList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="3_Struct\ListStruct.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
