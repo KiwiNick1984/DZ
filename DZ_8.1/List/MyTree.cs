@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DZ_8.List
+namespace DZ_8.Generic
 {
-    internal class MyTree
+
+
+    internal class MyTree<T> where T : IComparable<T>
     {
         public MyTree(int count = 0)
         {
@@ -14,13 +17,13 @@ namespace DZ_8.List
         }
 
         int _count;
-        public int _data;
-        MyTree _left;
-        MyTree _right;
+        public T _data;
+        MyTree<T> _left;
+        MyTree<T> _right;
 
         public int Count => _count;
 
-        public void Add(int inInt)
+        public void Add(T inInt)
         {
             if (_count == 0)
             {
@@ -29,11 +32,12 @@ namespace DZ_8.List
             }
             else
             {
-                if (inInt < _data)
+                //if(inInt < _data)
+                if(inInt.CompareTo(_data) < 0)
                 {
                     if (_left == null)
                     {
-                        _left = new MyTree(++_count);
+                        _left = new MyTree<T>(++_count);
                         _left._data = inInt;
                     }
                     else
@@ -46,7 +50,7 @@ namespace DZ_8.List
                 {
                     if (_right == null)
                     {
-                        _right = new MyTree(++_count);
+                        _right = new MyTree<T>(++_count);
                         _right._data = inInt;
                     }
                     else
@@ -58,13 +62,13 @@ namespace DZ_8.List
             }
         }
 
-        public bool Contains(int inInt)
+        public bool Contains(T inInt)
         {
-            if (inInt == _data)
+            if (inInt.CompareTo(_data) == 0)
             {
                 return true;
             }
-            else if (inInt < _data)
+            else if (inInt.CompareTo(_data) < 0)
             {
                 if (_left != null)
                     return _left.Contains(inInt);
@@ -80,11 +84,11 @@ namespace DZ_8.List
             }
         }
 
-        public int[] ToArray()
+        public T[] ToArray()
         {
-            int[] leftArr = new int[0];
-            int[] rightArr = new int[0];
-            int[] returnArr;
+            T[] leftArr = new T[0];
+            T[] rightArr = new T[0];
+            T[] returnArr;
             if (_left != null)
             {
                 leftArr = _left.ToArray();
@@ -95,9 +99,9 @@ namespace DZ_8.List
             }
             if (_left == null && _right == null)
             {
-                return new int[] { _data };
+                return new T[] { _data };
             }
-            returnArr = new int[leftArr.Length + rightArr.Length + 1];
+            returnArr = new T[leftArr.Length + rightArr.Length + 1];
             for (int i = 0; i < leftArr.Length; i++)
             {
                 returnArr[i] = leftArr[i];

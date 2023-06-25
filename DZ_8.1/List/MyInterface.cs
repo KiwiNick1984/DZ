@@ -1,6 +1,11 @@
-﻿namespace DZ_8
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+
+namespace DZ_8
 {
-    public interface IMyList : IMyEnumerable
+    public interface IMyList : IMyCollection
     {
         object this[int index] { get; set; }
         void Add(object value);
@@ -10,6 +15,11 @@
         void Insert(int index, object value);
         void Remove(object value);
         void RemoveAt(int index);
+    }
+    public interface IMyCollection
+    {
+        int Count { get; }
+        object [] ToArray();
     }
     public interface IMyEnumerable
     {
@@ -23,10 +33,10 @@
     }
 }
 namespace DZ_8.Generic
-{    public interface IMyList<T> : IMyEnumerable<T>
+{    
+    public interface IMyList<T> : IMyCollection<T>, IMyEnumerable<T>, IMyEnumerable
     {
         T this[int index] { get; set; }
-        void Add(T inItem);
         int IndexOf(T inItem);
         void Insert(int index, T inItem);
         void RemoveAt(int index);
@@ -34,16 +44,19 @@ namespace DZ_8.Generic
     public interface IMyCollection<T>
     {
         int Count { get; }
+        void Add(T inItem);
         void Clear();
+        bool Contains(T item);
         T[] ToArray();
     }
-    public interface IMyEnumerable<out T>
+
+    public interface IMyEnumerable<out T> : IMyEnumerable
     {
-        IMyEnumerator<T> GetEnumerator();
+        new IMyEnumerator<T> GetEnumerator();
     }
     public interface IMyEnumerator<out T> : IMyEnumerator
     {
-        new T Current
+        T Current
         {
             get;
         }

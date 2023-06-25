@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DZ_8
+namespace DZ_8.Generic
 {
-    internal class MyQueue : IMyCollection
+    internal class MyQueue<T> : IMyEnumerable<T>, IMyEnumerable, IMyCollection
     {
-        MyList listStruct = new MyList();
+        MyList<T> listStruct = new MyList<T>();
         public int Count => listStruct.Count;
 
-        public void Enqueue(object item)
+        public void Enqueue(T item)
         {
             listStruct.Add(item);
         }
-        public object Dequeue()
+        public T Dequeue()
         {
-            object tempObj = listStruct[0];
+            T tempObj = listStruct[0];
             listStruct.RemoveAt(0);
             return tempObj;
         }
@@ -25,34 +25,40 @@ namespace DZ_8
         {
             listStruct.Clear();
         }
-        public bool Contains(object item)
+        public bool Contains(T item)
         {
             return listStruct.Contains(item);
         }
-        public object Peek()
+        public T Peek()
         {
             return listStruct[0];
         }
-        public object[] ToArray()
+        public T[] ToArray()
         {
             return listStruct.ToArray();
         }
-
-        public IMyEnumerator GetEnumerator() => new Enumerator(listStruct);
-        public class Enumerator : IMyEnumerator
+        object[] IMyCollection.ToArray()
         {
-            private readonly MyList _list;
-            private int _index;
-            private object? _current;
+            return ((IMyCollection)listStruct).ToArray();
+        }
+        public IMyEnumerator<T> GetEnumerator() => new Enumerator(listStruct);
+        IMyEnumerator IMyEnumerable.GetEnumerator() => new Enumerator(listStruct);
 
-            public Enumerator(MyList list)
+        public class Enumerator : IMyEnumerator, IMyEnumerator<T>
+        {
+            private readonly MyList<T> _list;
+            private int _index;
+            private T _current;
+
+            public Enumerator(MyList<T> list)
             {
                 _list = list;
                 _index = 0;
-                _current = default(object);
+                _current = default(T);
             }
 
-            public object Current => _current!;
+            public T Current => _current;
+            object IMyEnumerator.Current => _current;
 
             public bool MoveNext()
             {
