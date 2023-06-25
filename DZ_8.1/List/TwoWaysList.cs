@@ -1,32 +1,34 @@
-﻿namespace DZ_8
+﻿using DZ_8.Generic;
+
+namespace DZ_8
 {
-    internal class TowWaysList : OneWayList
+    internal class TowWaysList<T> : OneWayList<T>
     {
-        protected override OneWayNode CreateNode(object data, OneWayNode next = null, OneWayNode prev = null)
+        protected override OneWayNode<T> CreateNode(T data, OneWayNode<T> next = null, OneWayNode<T> prev = null)
         {
-            TowWayNode newDode = new TowWayNode(data, next, prev);
+            TowWayNode<T> newDode = new TowWayNode<T>(data, next, prev);
             if (next != null)
-                ((TowWayNode)next).Prev = newDode;
+                ((TowWayNode<T>)next).Prev = newDode;
             if (prev != null)
-                prev.Next = newDode;                
-            return newDode; 
+                prev.Next = newDode;
+            return newDode;
         }
-        protected override void DeleteNode(OneWayNode current, OneWayNode next = null, OneWayNode prev = null)
+        protected override void DeleteNode(OneWayNode<T> current, OneWayNode<T> next = null, OneWayNode<T> prev = null)
         {
             current.Next = null;
-            current.Data = null;
-            ((TowWayNode)current).Prev = null;
+            current.Data = default(T);
+            ((TowWayNode<T>)current).Prev = null;
         }
     }
-    class TowWayNode : OneWayNode
+    class TowWayNode<T> : OneWayNode<T>
     {
-        private OneWayNode _prev;
-        public OneWayNode Prev
+        private OneWayNode<T> _prev;
+        public OneWayNode<T> Prev
         {
             get { return _prev; }
             set { _prev = value; }
         }
-        public TowWayNode(object data, OneWayNode next = null, OneWayNode prev = null) : base(data, next)
+        public TowWayNode(T data, OneWayNode<T> next = null, OneWayNode<T> prev = null) : base(data, next)
         {
             _prev = prev;
         }

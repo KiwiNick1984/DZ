@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DZ_8.Generic
 {
-    internal class MyList<T> : IMyList<T>, IMyList, IMyCollection<T>, IMyEnumerable<T>, IMyEnumerable
+    internal class MyList<T> : IMyList<T>, IMyList, IMyCollection<T>, IMyCollection, IMyEnumerable<T>, IMyEnumerable
     {
         private T[] _items;
         private int _size;
@@ -71,14 +72,30 @@ namespace DZ_8.Generic
             }
             _size = 0;
         }
-        public bool Contains(object inObj)
+        public bool Contains(T inItem)
         {
+            if(inItem == null)
+            {
+                for (int i = 0; i < _size; i++)
+                {
+                    if (_items[i] == null)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            EqualityComparer<T> defal = EqualityComparer<T>.Default;
             for (int i = 0; i < _size; i++)
             {
-                if (inObj.Equals(_items[i]))
+                if (defal.Equals(_items[i], inItem))
                     return true;
             }
             return false;
+        }
+        bool IMyList.Contains(object inItem)
+        {
+            return Contains((T)inItem);
         }
         public void Insert(int index, T inItem)
         {
@@ -109,13 +126,17 @@ namespace DZ_8.Generic
             }
 
         }
-        public void Remove(object inObj)
+        public void Remove(T inItem)
         {
-            int num = IndexOf(inObj);
+            int num = IndexOf(inItem);
             if (num >= 0)
             {
                 RemoveAt(num);
             }
+        }
+        void IMyList.Remove(object inItem)
+        {
+            Remove((T)inItem);
         }
         public void RemoveAt(int index)
         {
@@ -127,7 +148,7 @@ namespace DZ_8.Generic
             {
                 _items[i] = _items[i + 1];
             }
-            _items[_size - 1] = default(object);
+            _items[_size - 1] = default(T);
             _size--;
         }
         public int IndexOf(T inItem)
@@ -152,9 +173,18 @@ namespace DZ_8.Generic
             }
             return array;
         }
+        object[] IMyCollection.ToArray()
+        {
+            object[] array = new object[_size];
+            for (int i = 0; i < _size; i++)
+            {
+                array[i] = _items[i];
+            }
+            return array;
+        }
         public void Reverse()
         {
-            object tempObj;
+            T tempObj;
             for (int i = 0; i < _size / 2; i++)
             {
                 tempObj = _items[i];
@@ -177,7 +207,7 @@ namespace DZ_8.Generic
                     _capacity = min;
                 }
 
-                object[] tempObjArr = new object[_capacity];
+                T[] tempObjArr = new T[_capacity];
                 for (int i = 0; i < _items.Length; i++)
                 {
                     tempObjArr[i] = _items[i];
@@ -185,15 +215,8 @@ namespace DZ_8.Generic
                 _items = tempObjArr;
             }
         }
-
+        public IMyEnumerator<T> GetEnumerator() => new Enumerator(this);
         IMyEnumerator IMyEnumerable.GetEnumerator() => new Enumerator(this);
-
-        IMyEnumerator<T> GetEnumerator() => new Enumerator(this);
-
-        IMyEnumerator<T> IMyEnumerable<T>.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
 
         public class Enumerator : IMyEnumerator, IMyEnumerator<T>
         {
@@ -209,7 +232,6 @@ namespace DZ_8.Generic
             }
 
             public T Current => _current;
-
             object IMyEnumerator.Current => _current;
 
             public bool MoveNext()
