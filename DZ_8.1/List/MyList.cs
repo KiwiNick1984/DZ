@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DZ_8.Generic
+namespace DZ_5.Generic
 {
     internal class MyList<T> : IMyList<T>, IMyList, IMyCollection<T>, IMyCollection, IMyEnumerable<T>, IMyEnumerable
     {
@@ -22,7 +22,7 @@ namespace DZ_8.Generic
             EnsureCapacity(inCapacity);
         }
 
-        public void Add(T inItem)
+        public virtual void Add(T inItem)
         {
             if (_size == _items.Length)
             {
@@ -192,6 +192,67 @@ namespace DZ_8.Generic
                 _items[_size - i - 1] = tempObj;
             }
         }
+        public void Sort()
+        {
+            IComparable<T> tempItem;
+            int i;
+            for (int j = 1; j < Count; j++)
+            {
+                tempItem = (IComparable<T>)_items[j];
+                i = j - 1;
+                while(i >= 0 && tempItem.CompareTo(_items[i]) < 0)
+                {
+                    _items[i + 1] = _items[i];
+                    i--;
+                }
+                _items[i + 1] = (T)tempItem;
+            }
+        }
+        //public void Sort(IComparer<T> comparer)
+        //{
+        //    IComparable<T> tempItem;
+        //    int i;
+        //    for (int j = 1; j < Count; j++)
+        //    {
+        //        tempItem = (IComparable<T>)_items[j];
+        //        i = j - 1;
+        //        while (i >= 0 && tempItem.CompareTo(_items[i]) < 0)
+        //        {
+        //            _items[i + 1] = _items[i];
+        //            i--;
+        //        }
+        //        _items[i + 1] = (T)tempItem;
+        //    }
+        //}
+        public int BinarySearch(T searchedVal)
+        {
+            return BinarySearchPrivate(searchedVal, 0, Count);
+        }
+        private int BinarySearchPrivate(T searchedVal, int leftIndex, int rightIndex)
+        {
+            if(leftIndex > rightIndex)
+                return -1;
+
+            var middle = (leftIndex + rightIndex) / 2;
+            IComparable<T> middleVal = (IComparable<T>)_items[middle];
+
+            if (middleVal.CompareTo(searchedVal) == 0)
+            {
+                return middle;
+            }
+            else
+            {
+                if(middleVal.CompareTo(searchedVal) > 0)
+                {
+                    return BinarySearchPrivate(searchedVal, leftIndex, middle - 1);
+                }
+                else
+                {
+                    return BinarySearchPrivate(searchedVal, middle + 1, rightIndex);
+                }
+            }
+        }
+
 
         private void EnsureCapacity(int min)
         {
@@ -248,6 +309,11 @@ namespace DZ_8.Generic
                 _index = 0;
                 _current = default;
             }
+        }
+
+        public class Comparation<T> where T : IComparable<T> 
+        {
+
         }
     }
 }

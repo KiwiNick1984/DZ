@@ -6,13 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DZ_8.Generic
+namespace DZ_5.Generic
 {
     internal class MyStack<T> : IMyEnumerable<T>, IMyEnumerable, IMyCollection
     {
         MyList<T> _items = new MyList<T>();
         public int Count => _items.Count;
-
 
         public void Push(T inObj)
         {

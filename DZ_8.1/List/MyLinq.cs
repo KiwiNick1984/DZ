@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DZ_8.Generic
+namespace DZ_5.Generic
 {
     internal static class Mylinq
     {

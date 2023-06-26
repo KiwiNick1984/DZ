@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DZ_8.Generic
+namespace DZ_5.Generic
 {
     internal class MyQueue<T> : IMyEnumerable<T>, IMyEnumerable, IMyCollection
     {

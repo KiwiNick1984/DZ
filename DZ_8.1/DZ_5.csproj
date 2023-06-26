@@ -114,10 +114,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="List\IMyEnumerator.cs" />
     <Compile Include="List\MyInterface.cs" />
     <Compile Include="List\MyLinq.cs" />
     <Compile Include="List\MyList.cs" />
+    <Compile Include="List\MyObservableCollection.cs" />
     <Compile Include="List\MyQueue.cs" />
     <Compile Include="List\MyStack.cs" />
     <Compile Include="List\MyTree.cs" />

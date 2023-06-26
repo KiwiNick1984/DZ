@@ -5,10 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DZ_8.Generic
+namespace DZ_5.Generic
 {
-
-
     internal class MyTree<T> where T : IComparable<T>
     {
         public MyTree(int count = 0)
