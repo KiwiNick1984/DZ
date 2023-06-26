@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace DZ_8.Generic
+namespace DZ_5.Generic
 {
     internal class OneWayList<T> : IMyCollection<T>, IMyEnumerable<T>
     {

@@ -1,6 +1,4 @@
-﻿using DZ_8.Generic;
-
-namespace DZ_8
+﻿namespace DZ_5.Generic
 {
     internal class TowWaysList<T> : OneWayList<T>
     {

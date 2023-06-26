@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace DZ_8
+namespace DZ_5
 {
     public interface IMyList : IMyCollection
     {
@@ -32,7 +32,8 @@ namespace DZ_8
         void Reset();
     }
 }
-namespace DZ_8.Generic
+
+namespace DZ_5.Generic
 {    
     public interface IMyList<T> : IMyCollection<T>, IMyEnumerable<T>, IMyEnumerable
     {
