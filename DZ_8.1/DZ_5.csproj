@@ -119,6 +119,7 @@
     <Compile Include="List\MyList.cs" />
     <Compile Include="List\MyObservableCollection.cs" />
     <Compile Include="List\MyQueue.cs" />
+    <Compile Include="List\MyQueuePriority.cs" />
     <Compile Include="List\MyStack.cs" />
     <Compile Include="List\MyTree.cs" />
     <Compile Include="List\OneWayList.cs" />

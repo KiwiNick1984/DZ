@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -113,9 +114,9 @@ namespace DZ_5{
             Console.Clear();
             #endregion
 
-            #region [  MyList<Person>]
+            #region [  MyList<Person>  ]
             MyList<Person> people = new MyList<Person>();
-            people.Add(new Person(25, "Stivi"));
+            people.Add(new Person(25, "Stevie"));
             people.Add(new Person(31, "Joi"));
             people.Add(new Person(27, "Pamela"));
             people.Add(new Person(38, "Nick"));
@@ -124,6 +125,19 @@ namespace DZ_5{
             {
                 Console.WriteLine(item._age + " " + item._name);                
             }
+            //Ожидание "Enter"
+            Console.WriteLine("\n\nMyObservableCollection  -> \"Enter\"...");
+            Console.ReadLine();
+            Console.Clear();
+            #endregion
+
+            #region [  MyObservableCollection  ]
+
+            MyObservableCollection<int> myObservableCollection = new MyObservableCollection<int>();
+            void AddLog(string strlog) => Console.WriteLine(strlog);
+            myObservableCollection.Add(1, AddLog);
+            myObservableCollection.Add(2, AddLog);
+            myObservableCollection.Add(3, AddLog);
             //Ожидание "Enter"
             Console.WriteLine("\n\nOneWayList  -> \"Enter\"...");
             Console.ReadLine();
@@ -272,7 +286,7 @@ namespace DZ_5{
         public int CompareTo(Person other)
         {
             if (other == null) 
-                return 1;
+                return -1;
             return _age.CompareTo(other._age);
         }
     }

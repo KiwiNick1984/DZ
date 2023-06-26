@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DZ_5.Generic.MyObservableCollection<T>;
 
 namespace DZ_5.Generic
 {
@@ -21,6 +20,7 @@ namespace DZ_5.Generic
         public void Add(T inItem, Action<string> addLogAction)
         {
             base.Add(inItem);
+            addLogAction($"Добавлен элемент {inItem}");
         }
     }
 }
