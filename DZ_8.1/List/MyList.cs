@@ -243,13 +243,9 @@ namespace DZ_5.Generic
             else
             {
                 if(middleVal.CompareTo(searchedVal) > 0)
-                {
                     return BinarySearchPrivate(searchedVal, leftIndex, middle - 1);
-                }
                 else
-                {
                     return BinarySearchPrivate(searchedVal, middle + 1, rightIndex);
-                }
             }
         }
 
