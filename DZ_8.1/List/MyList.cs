@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace DZ_5.Generic
 {
@@ -29,6 +30,11 @@ namespace DZ_5.Generic
                 EnsureCapacity(_size + 1);
             }
             _items[_size++] = inItem;
+        }
+        public void Add(T inItem, Action<string> addLogAction)
+        {
+            Add(inItem);
+            addLogAction($"Добавлен элемент {inItem}");
         }
         void IMyList.Add(object inItem)
         {
@@ -114,6 +120,11 @@ namespace DZ_5.Generic
             _items[index] = inItem;
             _size++;
         }
+        public void Insert(int index, T inItem, Action<string> insertLogAction)
+        {
+            this.Insert(index, inItem);
+            insertLogAction($"Элемент {inItem} вставлен в позицию {index}");
+        }
         void IMyList.Insert(int index, object inIndex)
         {
             try
@@ -164,6 +175,17 @@ namespace DZ_5.Generic
         {
             return IndexOf((T)inObj);
         }
+        public int LastIndexOf(T inItem)
+        {
+            int tempIndex = -1;
+            for (int i = 0; i < _size; i++)
+            {
+                if (inItem.Equals(_items[i]))
+                    tempIndex = i;
+            }
+
+            return tempIndex;
+        }
         public T[] ToArray()
         {
             T[] array = new T[_size];
@@ -208,22 +230,22 @@ namespace DZ_5.Generic
                 _items[i + 1] = (T)tempItem;
             }
         }
-        //public void Sort(IComparer<T> comparer)
-        //{
-        //    IComparable<T> tempItem;
-        //    int i;
-        //    for (int j = 1; j < Count; j++)
-        //    {
-        //        tempItem = (IComparable<T>)_items[j];
-        //        i = j - 1;
-        //        while (i >= 0 && tempItem.CompareTo(_items[i]) < 0)
-        //        {
-        //            _items[i + 1] = _items[i];
-        //            i--;
-        //        }
-        //        _items[i + 1] = (T)tempItem;
-        //    }
-        //}
+        public void Sort(IComparer<T> comparer)
+        {
+            T tempItem;
+            int i;
+            for (int j = 1; j < Count; j++)
+            {
+                tempItem = _items[j];
+                i = j - 1;
+                while (i >= 0 && comparer.Compare(tempItem, _items[i]) < 0)
+                {
+                    _items[i + 1] = _items[i];
+                    i--;
+                }
+                _items[i + 1] = tempItem;
+            }
+        }
         public int BinarySearch(T searchedVal)
         {
             return BinarySearchPrivate(searchedVal, 0, Count);
@@ -248,7 +270,6 @@ namespace DZ_5.Generic
                     return BinarySearchPrivate(searchedVal, middle + 1, rightIndex);
             }
         }
-
 
         private void EnsureCapacity(int min)
         {
@@ -305,11 +326,6 @@ namespace DZ_5.Generic
                 _index = 0;
                 _current = default;
             }
-        }
-
-        public class Comparation<T> where T : IComparable<T> 
-        {
-
         }
     }
 }

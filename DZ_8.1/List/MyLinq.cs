@@ -23,26 +23,6 @@ namespace DZ_5.Generic
                 return GetEnumerator();
             }
         }
-        class MyLinq_CreateSelectEnumerator<T, TResult> : IMyEnumerable<TResult>
-        {
-            IMyEnumerable<T> _enumerable;
-            Func<T, TResult> _selector;
-            public MyLinq_CreateSelectEnumerator(IMyEnumerable<T> enumerable, Func<T, TResult> selector)
-            {
-                _enumerable = enumerable;
-                _selector = selector;
-            }
-
-            public IMyEnumerator<TResult> GetEnumerator()
-            {
-                return new MySelectEnumerator<T, TResult>(_enumerable, _selector);
-            }
-
-            IMyEnumerator IMyEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-        }
 
         class MyWhereEnumerator<T> : IMyEnumerator<T>
         {
@@ -219,6 +199,52 @@ namespace DZ_5.Generic
                 throw new NotImplementedException();
             }
         }
+        class MySelectManyEnumerator<T, TResult> : IMyEnumerator<TResult>
+        {
+            public readonly IMyEnumerator<T> _enumerator;
+            public IMyEnumerator<TResult> _innerEnumerator;
+            
+            private TResult _current;
+            private readonly Func<T, IMyEnumerable<TResult>> _selector;
+            
+
+            public TResult Current => _current;
+            object IMyEnumerator.Current => _current;
+
+            public MySelectManyEnumerator(IMyEnumerable<T> enumerator, Func<T, IMyEnumerable<TResult>> selector)
+            {
+                _enumerator = enumerator.GetEnumerator();
+                _selector = selector;
+            }
+
+            public bool MoveNext()
+            {
+                if(_innerEnumerator != null)
+                {
+                    while (_innerEnumerator.MoveNext())
+                    {
+                        _current = _innerEnumerator.Current;
+                        return true;
+                    }
+                    _innerEnumerator = null;
+                }
+
+                while (_enumerator.MoveNext()) {
+                    _innerEnumerator = _selector(_enumerator.Current).GetEnumerator();
+                    while(_innerEnumerator.MoveNext())
+                    {
+                        _current = _innerEnumerator.Current;
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            public void Reset()
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         public static IMyEnumerable<T> MyWhere<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate)
         {
@@ -360,11 +386,13 @@ namespace DZ_5.Generic
         }
         public static IMyEnumerable<TResult> Select<T, TResult>(this IMyEnumerable<T> enumerable, Func<T, TResult> selector)
         {
-            return new MyLinq_CreateSelectEnumerator<T, TResult>(enumerable, selector);
+            return new MyLinq_CreateEnumerator<TResult>(() => new MySelectEnumerator<T, TResult>(enumerable, selector));
         }
-        public static IEnumerable<TResult> SelectMany<T, TResult>(this IMyEnumerable<T> enumerable, Func<T, IMyEnumerable<TResult>> selector)
+        public static IMyEnumerable<TResult> SelectMany<T, TResult>(this IMyEnumerable<T> enumerable, Func<T, IMyEnumerable<TResult>> selector)
         {
-            return SelectManyIterator(enumerable, selector);
+
+            return new MyLinq_CreateEnumerator<TResult>(() => new MySelectManyEnumerator<T, TResult>(enumerable, selector));
+            //return SelectManyIterator(enumerable, selector);
         }
         private static IEnumerable<TResult> SelectManyIterator<T, TResult>(this IMyEnumerable<T> enumerable, Func<T, IMyEnumerable<TResult>> selector)
         {
