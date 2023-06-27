@@ -14,6 +14,7 @@ namespace DZ_5{
             LinkedList<int> l = new LinkedList<int>();
             IMyEnumerable filter;
 
+
             #region [  MyList  ]
             //////////////////////////MyList////////////////////////////
             Console.WriteLine("\t!!!---MyList---!!!");
