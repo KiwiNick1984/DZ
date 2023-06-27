@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+//using System.Linq;
 using DZ_5.Generic;
+using static HotChocolate.ErrorCodes;
 
 namespace DZ_5{
 
@@ -70,7 +66,13 @@ namespace DZ_5{
             {
                 Console.Write(item + ", ");
             }
+            //Ожидание "Enter"
+            Console.WriteLine("\n\nMyList<Student> students  -> \"Enter\"...");
+            Console.ReadLine();
+            Console.Clear();
+            #endregion
 
+            #region [  MyList<Student> students  ]
             filter = myList.Select(x => x.ToString());
             filter = from p in myList select p.ToString();
             //foreach (var item in filter)
@@ -78,35 +80,40 @@ namespace DZ_5{
             //    Console.WriteLine(item.GetType());
             //}
 
-            MyList<MyList<int>> myListList = new MyList<MyList<int>>();
-            MyList<int> myList_1 = new MyList<int>();
-            myList_1.Add(1);
-            myList_1.Add(2);
-            myList_1.Add(5);
-            myList_1.Add(3);
-            myList_1.Add(4);
-            MyList<int> myList_2 = new MyList<int>();
-            myList_2.Add(10);
-            myList_2.Add(20);
-            myList_2.Add(30);
-            myList_2.Add(40);
-            myList_2.Add(50);
-            MyList<int> myList_3 = new MyList<int>();
-            myList_3.Add(100);
-            myList_3.Add(200);
-            myList_3.Add(300);
-            myList_3.Add(400);
-            myList_3.Add(500);
-            myListList.Add(myList_1);
-            myListList.Add(myList_2);
-            myListList.Add(myList_3);
+            MyList<Student> students = new MyList<Student>();
+            students.Add(new Student(21, "Nick", 85.9f, "2A"));
+            students.Add(new Student(20, "Bob", 88.2f, "2A"));
+            students.Add(new Student(21, "Lisi", 80.5f, "2A"));
+            students.Add(new Student(21, "Joi", 95.9f, "2B"));
+            students.Add(new Student(23, "Ed", 93.9f, "2B"));
+            students[0]._books.Add(new Book("Проктология для любознательных", "Н.Е. Глубокий"));
+            students[0]._books.Add(new Book("Эксплуатация и ремонт северного оленя", "Г.В. Федосеев"));
+            students[0]._books.Add(new Book("Боевой бамбинтон. История и практика", "Г.К. Клейн"));
+            students[1]._books.Add(new Book("Руководство трофейного киборга Т-800", "T.T. Терминатор"));
+            students[1]._books.Add(new Book("Как пить каждый день", "З.А. Пой"));
+            students[1]._books.Add(new Book("Животные под бутиратом", "С.А. Маршак"));
+            students[2]._books.Add(new Book("Вайфай: правда или вымысел?", "А.И. Палий"));
+            students[3]._books.Add(new Book("Хищные грибы Узбекистана", "А.И. Палий"));
+            students[3]._books.Add(new Book("Организация общества трезвости на природе", "И.Б. Священник"));
+            students[3]._books.Add(new Book("Лечение колокольным звоном", "И.Б. Священник"));
 
-            var employees = myListList.SelectMany(c => c);
-            Console.WriteLine("\n\n!!!Список списков!!!");
-            Console.WriteLine("myListList.SelectMany(c => c)");
-            foreach (var item in employees)
+            var stud = students.Select(i => new
             {
-                Console.Write(item + ", ");
+                name = i._name,
+                age = i._age,
+                group = i._group,
+                rating = i._rating
+            });
+            Console.WriteLine("!!!Список студентов!!!");
+            foreach (var item in stud)
+            {
+                Console.Write(item + "\n");
+            }
+            var books = students.SelectMany(i => i._books);
+            Console.WriteLine("!!!Список книг!!!");
+            foreach (var item in books)
+            {
+                Console.Write(item._title + " " + item._author + "\n");
             }
             //Ожидание "Enter"
             Console.WriteLine("\n\nMyList<Person>  -> \"Enter\"...");
@@ -115,6 +122,7 @@ namespace DZ_5{
             #endregion
 
             #region [  MyList<Person>  ]
+            Console.WriteLine("\t!!!---MyList<Person>---!!!");
             MyList<Person> people = new MyList<Person>();
             people.Add(new Person(25, "Stevie"));
             people.Add(new Person(31, "Joi"));
@@ -132,12 +140,19 @@ namespace DZ_5{
             #endregion
 
             #region [  MyObservableCollection  ]
-
-            MyObservableCollection<int> myObservableCollection = new MyObservableCollection<int>();
+            //////////////////////////MyObservableCollection////////////////////////////
+            Console.WriteLine("\t!!!---MyObservableCollection---!!!");
+            MyList<int> myObservableCollection = new MyList<int>();
             void AddLog(string strlog) => Console.WriteLine(strlog);
             myObservableCollection.Add(1, AddLog);
             myObservableCollection.Add(2, AddLog);
             myObservableCollection.Add(3, AddLog);
+            myObservableCollection.Insert(0, 100, AddLog);
+            myObservableCollection.Insert(2, 200, AddLog);
+            foreach (var item in myObservableCollection)
+            {
+                Console.WriteLine(item);
+            }
             //Ожидание "Enter"
             Console.WriteLine("\n\nOneWayList  -> \"Enter\"...");
             Console.ReadLine();
@@ -238,6 +253,40 @@ namespace DZ_5{
                 Console.Write(item + ", ");
             }
             //Ожидание "Enter"
+            Console.WriteLine("\n\nMyQueuePriority  -> \"Enter\"...");
+            Console.ReadLine();
+            Console.Clear();
+            #endregion
+
+            #region [  MyQueuePriority  ]
+            //////////////////////////MyQueuePriority////////////////////////////
+            Console.WriteLine("\t!!!---MyQueuePriority---!!!");
+            MyQueuePriority<int> myQueuePriority = new MyQueuePriority<int>();
+            myQueuePriority.Enqueue(10, 1);
+            myQueuePriority.Enqueue(11, 1);
+            myQueuePriority.Enqueue(12, 1);
+            myQueuePriority.Enqueue(20, 2);
+            myQueuePriority.Enqueue(21, 2);
+            myQueuePriority.Enqueue(30, 3);
+            myQueuePriority.Enqueue(31, 3);
+            myQueuePriority.Enqueue(33, 3);
+            myQueuePriority.Enqueue(22, 2);
+            myQueuePriority.Enqueue(23, 2);
+            myQueuePriority.Enqueue(13, 1);
+            Console.WriteLine("PrintAll");
+            foreach (var item in myQueuePriority)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("myQueuePriority.Dequeue()");
+            Console.WriteLine(myQueuePriority.Dequeue());
+            Console.WriteLine(myQueuePriority.Dequeue());
+            Console.WriteLine("PrintAll");
+            foreach (var item in myQueuePriority)
+            {
+                Console.WriteLine(item);
+            }
+            //Ожидание "Enter"
             Console.WriteLine("\n\nMyTree  -> \"Enter\"...");
             Console.ReadLine();
             Console.Clear();
@@ -269,6 +318,8 @@ namespace DZ_5{
             }
             Console.WriteLine();
             #endregion
+
+
         }
     }
 
@@ -290,4 +341,33 @@ namespace DZ_5{
             return _age.CompareTo(other._age);
         }
     }
+    internal class Student : Person
+    {
+        public float _rating;
+        public string _group;
+        public MyList<Book> _books;
+        public Student(int age, string name, float rating, string group) : base(age, name)
+        {
+            _rating = rating;
+            _group = group;
+            _books = new MyList<Book>();
+        }
+        public void AddBook(Book book)
+        { _books.Add(book); }
+    }
+    internal class Book
+    {
+        static int ID = 0;
+
+        public int _id;
+        public string _title;
+        public string _author;
+        public Book(string title, string author) 
+        {
+            _id = ++ID;
+            _title = title;
+            _author = author;
+        }
+    }
+
 }
