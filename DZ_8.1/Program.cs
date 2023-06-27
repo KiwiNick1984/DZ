@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 //using System.Linq;
 using DZ_5.Generic;
-using static HotChocolate.ErrorCodes;
 
 namespace DZ_5{
 
@@ -318,8 +317,6 @@ namespace DZ_5{
             }
             Console.WriteLine();
             #endregion
-
-
         }
     }
 

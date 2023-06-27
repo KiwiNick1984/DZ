@@ -249,7 +249,7 @@ namespace DZ_5.Generic
         public static IMyEnumerable<T> MyWhere<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate)
         {
             return new MyLinq_CreateEnumerator<T>(() => new MyWhereEnumerator<T>(enumerable, predicate));
-        }
+        }   
         public static IMyEnumerable<T> MySkip<T>(this IMyEnumerable<T> enumerable, int count)
         {
             return new MyLinq_CreateEnumerator<T>(() => new MySkipEnumerator<T>(enumerable, count));
@@ -390,8 +390,9 @@ namespace DZ_5.Generic
         }
         public static IMyEnumerable<TResult> SelectMany<T, TResult>(this IMyEnumerable<T> enumerable, Func<T, IMyEnumerable<TResult>> selector)
         {
-
+            //Не простое решение
             return new MyLinq_CreateEnumerator<TResult>(() => new MySelectManyEnumerator<T, TResult>(enumerable, selector));
+            //Простое решение
             //return SelectManyIterator(enumerable, selector);
         }
         private static IEnumerable<TResult> SelectManyIterator<T, TResult>(this IMyEnumerable<T> enumerable, Func<T, IMyEnumerable<TResult>> selector)
