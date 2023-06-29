@@ -50,12 +50,10 @@ namespace DZ_6
             //Вивести найкоротше слово в рядку "aaa;xabbx;abb;ccc;dap;zh" у зворотному порядку.
             Console.WriteLine("Вивести найкоротше слово в рядку \"aaa;xabbx;abb;ccc;dap;zh\" у зворотному порядку.");
             Console.WriteLine(string.Join("", "aaa;xabbx;abb;ccc;dap;zh".Split(';').OrderBy(str => str.Length).FirstOrDefault().Reverse()));
-
             //Вивести true, якщо в першому слові, яке починається з "aa", усі літери "b"(За винятком "аа"), інакше false "baaa;aabb;aaa;xabbx;abb;ccc;dap;zh"
             Console.WriteLine("Вивести true, якщо в першому слові, яке починається з \"aa\", усі літери \"b\"(За винятком \"аа\"), інакше false \"baaa;aabb;aaa;xabbx;abb;ccc;dap;zh\"");
             Console.WriteLine("baaa;aabb;aaa;xabbx;abb;ccc;dap;zh".Split(';').First(str => str.StartsWith("aa")).Reverse().SkipWhile(ch => ch == 'b').Count() == 2);
             Console.WriteLine();
-
             //Вивести останнє слово в послідовності, за винятком перших двох елементів, які закінчуються на "bb"(використовуйте послідовність із 10 завдання)
             Console.WriteLine("Вивести останнє слово в послідовності, за винятком перших двох елементів, які закінчуються на \"bb\"(використовуйте послідовність із 10 завдання)");
             Console.WriteLine("baaa;aabb;aaa;xabbx;abb;ccc;dap;zh".Split(';').Skip(2).Where(str => str.EndsWith("bb")).Last());
