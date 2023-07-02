@@ -16,7 +16,6 @@ namespace DZ_5.Generic
             get => _capacity;
         }
 
-        public MyList() : this(4) { }
         public MyList(int inCapacity = 4)
         {
             _items = new T[0];

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace DZ_5.Generic
@@ -52,6 +53,31 @@ namespace DZ_5.Generic
                 throw new NotImplementedException();
             }
         }
+        class MyWhereEnumerator_Yield<T> : IEnumerable<T>
+        {
+            private readonly IMyEnumerator<T> _enumerator;
+            private readonly Predicate<T> _predicate;
+
+            public MyWhereEnumerator_Yield(IMyEnumerable<T> enumerator, Predicate<T> predicate)
+            {
+                _enumerator = enumerator.GetEnumerator();
+                _predicate = predicate;
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                while (_enumerator.MoveNext())
+                {
+                    if (_predicate(_enumerator.Current))
+                        yield return _enumerator.Current;
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
+        }
         class MySkipEnumerator<T> : IMyEnumerator<T>
         {
             public readonly IMyEnumerator<T> _enumerator;
@@ -73,6 +99,32 @@ namespace DZ_5.Generic
                 return _enumerator.MoveNext();
             }
             public void Reset()
+            {
+                throw new NotImplementedException();
+            }
+        }
+        class MySkipEnumerator_Yield<T> : IEnumerable<T>
+        {
+            private readonly IMyEnumerator<T> _enumerator;
+            private int _count;
+
+            public MySkipEnumerator_Yield(IMyEnumerable<T> enumerator, int count)
+            {
+                _enumerator = enumerator.GetEnumerator();
+                _count = count;
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                while (_enumerator.MoveNext())
+                {
+                    for (; _count > 0; _count--)
+                        _enumerator.MoveNext();
+                    yield return _enumerator.Current;
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
             {
                 throw new NotImplementedException();
             }
@@ -110,6 +162,35 @@ namespace DZ_5.Generic
                 throw new NotImplementedException();
             }
         }
+        class MySkipWhileEnumerator_Yield<T> : IEnumerable<T>
+        {
+            private readonly IMyEnumerator<T> _enumerator;
+            private readonly Predicate<T> _predicate;
+            bool _noSkip;
+
+            public MySkipWhileEnumerator_Yield(IMyEnumerable<T> enumerator, Predicate<T> predicate)
+            {
+                _enumerator = enumerator.GetEnumerator();
+                _predicate = predicate;
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                while (_enumerator.MoveNext())
+                {
+                    if(_noSkip || !_predicate(_enumerator.Current))
+                    {
+                        _noSkip = true;
+                        yield return _enumerator.Current;
+                    }
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                throw new NotImplementedException();
+            }
+        }
         class MyTakeEnumerator<T> : IMyEnumerator<T>
         {
             public readonly IMyEnumerator<T> _enumerator;
@@ -134,6 +215,31 @@ namespace DZ_5.Generic
             }
 
             public void Reset()
+            {
+                throw new NotImplementedException();
+            }
+        }
+        class MyTakeEnumerator_Yield<T> : IEnumerable<T>
+        {
+            private readonly IMyEnumerator<T> _enumerator;
+            public int _count;
+
+            public MyTakeEnumerator_Yield(IMyEnumerable<T> enumerator, int count)
+            {
+                _enumerator = enumerator.GetEnumerator();
+                _count= count;
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                while (_enumerator.MoveNext() && _count > 0)
+                {
+                    _count--;
+                    yield return _enumerator.Current;
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
             {
                 throw new NotImplementedException();
             }
@@ -165,6 +271,35 @@ namespace DZ_5.Generic
                 return false;
             }
             public void Reset()
+            {
+                throw new NotImplementedException();
+            }
+        }
+        class MyTakeWhileEnumerator_Yield<T> : IEnumerable<T>
+        {
+            private readonly IMyEnumerator<T> _enumerator;
+            private readonly Predicate<T> _predicate;
+            bool _take;
+
+            public MyTakeWhileEnumerator_Yield(IMyEnumerable<T> enumerator, Predicate<T> predicate)
+            {
+                _enumerator = enumerator.GetEnumerator();
+                _predicate = predicate;
+                _take = true;
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                while (_enumerator.MoveNext() && _take)
+                {
+                    if (!_predicate(_enumerator.Current))
+                        _take = false;
+                    else
+                        yield return _enumerator.Current;
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
             {
                 throw new NotImplementedException();
             }
@@ -249,22 +384,42 @@ namespace DZ_5.Generic
         public static IMyEnumerable<T> MyWhere<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate)
         {
             return new MyLinq_CreateEnumerator<T>(() => new MyWhereEnumerator<T>(enumerable, predicate));
-        }   
+        }
+        public static IEnumerable<T> MyWhere_Yield<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate)
+        {
+            return new MyWhereEnumerator_Yield<T>(enumerable, predicate);
+        }
         public static IMyEnumerable<T> MySkip<T>(this IMyEnumerable<T> enumerable, int count)
         {
             return new MyLinq_CreateEnumerator<T>(() => new MySkipEnumerator<T>(enumerable, count));
+        }
+        public static IEnumerable<T> MySkip_Yield<T>(this IMyEnumerable<T> enumerable, int count)
+        {
+            return new MySkipEnumerator_Yield<T>(enumerable, count);
         }
         public static IMyEnumerable<T> MySkipWhile<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate)
         {
             return new MyLinq_CreateEnumerator<T>(() => new MySkipWhileEnumerator<T>(enumerable, predicate));
         }
+        public static IEnumerable<T> MySkipWhile_Yield<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate)
+        {
+            return new MySkipWhileEnumerator_Yield<T>(enumerable, predicate);
+        }
         public static IMyEnumerable<T> MyTake<T>(this IMyEnumerable<T> enumerable, int count)
         {
             return new MyLinq_CreateEnumerator<T>(() => new MyTakeEnumerator<T>(enumerable, count));
         }
+        public static IEnumerable<T> MyTake_Yiels<T>(this IMyEnumerable<T> enumerable, int count)
+        {
+            return new MyTakeEnumerator_Yield<T>(enumerable, count);
+        }
         public static IMyEnumerable<T> MyTakeWhile<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate)
         {
             return new MyLinq_CreateEnumerator<T>(() => new MyTakeWhileEnumerator<T>(enumerable, predicate));
+        }
+        public static IEnumerable<T> MyTakeWhile_Yield<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate)
+        {
+            return new MyTakeWhileEnumerator_Yield<T>(enumerable, predicate);
         }
         public static T MyFirst<T>(this IMyEnumerable<T> enumerable, Predicate<T> predicate = null)
         {

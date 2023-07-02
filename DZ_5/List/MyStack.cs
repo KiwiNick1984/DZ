@@ -32,6 +32,10 @@ namespace DZ_5.Generic
         {
             return _items.Contains(inItem);
         }
+        bool IMyCollection.Contains(object inItem)
+        {
+            return Contains((T)inItem);
+        }
         public T[] ToArray()
         {
             return _items.ToArray();

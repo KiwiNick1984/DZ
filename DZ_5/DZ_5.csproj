@@ -43,7 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyInterface\MyInterface.cs" />
+    <Compile Include="MyInterface\Generic\IMyCollection.cs" />
+    <Compile Include="MyInterface\Generic\IMyEnumerable.cs" />
+    <Compile Include="MyInterface\Generic\IMyEnumerator.cs" />
+    <Compile Include="MyInterface\Generic\IMyList.cs" />
+    <Compile Include="MyInterface\NotGeneric\IMyCollection.cs" />
+    <Compile Include="MyInterface\NotGeneric\IMyEnumerable.cs" />
+    <Compile Include="MyInterface\NotGeneric\IMyEnumerator.cs" />
+    <Compile Include="MyInterface\NotGeneric\IMyList.cs" />
     <Compile Include="MyLinq\MyLinq.cs" />
     <Compile Include="List\MyList.cs" />
     <Compile Include="List\MyQueue.cs" />
