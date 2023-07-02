@@ -99,7 +99,7 @@ namespace DZ_5.Generic
             }
             return false;
         }
-        bool IMyList.Contains(object inItem)
+        bool IMyCollection.Contains(object inItem)
         {
             return Contains((T)inItem);
         }
@@ -302,6 +302,7 @@ namespace DZ_5.Generic
                 yield return _items[i];
             }
         }
+
         public class Enumerator : IMyEnumerator, IMyEnumerator<T>
         {
             private readonly MyList<T> _list;
