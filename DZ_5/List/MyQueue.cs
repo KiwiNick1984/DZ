@@ -41,8 +41,16 @@ namespace DZ_5.Generic
         {
             return ((IMyCollection)listStruct).ToArray();
         }
-        public IMyEnumerator<T> GetEnumerator() => new Enumerator(listStruct);
+        IMyEnumerator<T> IMyEnumerable<T>.GetEnumerator() => new Enumerator(listStruct);
         IMyEnumerator IMyEnumerable.GetEnumerator() => new Enumerator(listStruct);
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                yield return listStruct[i];
+            }
+        }
+
 
         public class Enumerator : IMyEnumerator, IMyEnumerator<T>
         {

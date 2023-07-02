@@ -312,7 +312,7 @@ namespace DZ_5
             Console.WriteLine();
 
             int[] arr = tree.ToArray();
-            foreach (int item in arr)
+            foreach (int item in tree)
             {
                 Console.Write(item + ", ");
             }

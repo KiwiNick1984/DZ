@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace DZ_5.Generic
 {
-    internal class MyList<T> : IMyList<T>, IMyList, IMyCollection<T>, IMyCollection, IMyEnumerable<T>, IMyEnumerable
+    internal class MyList<T> : IMyList<T>, IMyList, IMyCollection<T>, IMyCollection
     {
         private T[] _items;
         private int _size;
@@ -293,9 +293,15 @@ namespace DZ_5.Generic
                 _items = tempObjArr;
             }
         }
-        public IMyEnumerator<T> GetEnumerator() => new Enumerator(this);
+        IMyEnumerator<T> IMyEnumerable<T>.GetEnumerator() => new Enumerator(this);
         IMyEnumerator IMyEnumerable.GetEnumerator() => new Enumerator(this);
-
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                yield return _items[i];
+            }
+        }
         public class Enumerator : IMyEnumerator, IMyEnumerator<T>
         {
             private readonly MyList<T> _list;
