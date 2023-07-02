@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace DZ_5.Generic
@@ -36,10 +37,17 @@ namespace DZ_5.Generic
             return tempObj;
         }
 
-        public IMyEnumerator<T> GetEnumerator() => new Enumerator(this);
+        IMyEnumerator<T> IMyEnumerable<T>.GetEnumerator() => new Enumerator(this);
         IMyEnumerator IMyEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
+        }
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                yield return _listNodes[i]._data;
+            }
         }
 
         public class Enumerator : IMyEnumerator, IMyEnumerator<T>

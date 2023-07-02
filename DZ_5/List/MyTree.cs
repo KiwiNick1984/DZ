@@ -111,5 +111,42 @@ namespace DZ_5.Generic
             returnArr[returnArr.Length - 1] = _data;
             return returnArr;
         }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            Stack<stackNode> stack = new Stack<stackNode>();
+            stack.Push(new stackNode(_data, _right));
+            MyTree<T> _nextNode = _left;
+            while (stack.Count != 0)
+            {
+                if (_nextNode != null)
+                {
+                    stack.Push(new stackNode(_nextNode._data, _nextNode._right));
+                    _nextNode = _nextNode._left;
+                }
+                else if (stack.Peek()._right != null && !stack.Peek()._print)
+                {
+                    stack.Peek()._print = true;
+                    _nextNode = stack.Peek()._right._left;
+                    stack.Push(new stackNode(stack.Peek()._right._data, stack.Peek()._right._right));                    
+                }
+                else
+                {
+                    yield return stack.Pop()._dataNode;
+                }
+            }
+        }
+
+        private class stackNode
+        {
+            public T _dataNode;
+            public MyTree<T> _right;
+            public bool _print;
+            public stackNode(T data, MyTree<T> right)
+            {
+                _dataNode = data;
+                _right = right;
+            }
+        }
     }
 }

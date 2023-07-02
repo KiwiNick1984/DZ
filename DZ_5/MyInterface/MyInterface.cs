@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace DZ_5
 {
-    public interface IMyList : IMyCollection
+    public interface IMyList : IMyCollection, IMyEnumerable
     {
         object this[int index] { get; set; }
         void Add(object value);

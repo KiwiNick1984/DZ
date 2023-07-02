@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DZ_5.Generic
 {
-    internal class OneWayList<T> : IMyCollection<T>, IMyEnumerable<T>
+    internal class OneWayList<T> : IMyCollection<T>, IMyEnumerable<T>, IMyEnumerable
     {
         protected OneWayNode<T> _head;
         protected OneWayNode<T> _tail;
@@ -135,11 +136,23 @@ namespace DZ_5.Generic
             current.Data = default(T);
         }
 
-        public IMyEnumerator<T> GetEnumerator() => new Enumerator(this);
+        IMyEnumerator<T> IMyEnumerable<T>.GetEnumerator() => new Enumerator(this);
         IMyEnumerator IMyEnumerable.GetEnumerator() => new Enumerator(this);
+        public IEnumerator<T> GetEnumerator()
+        {
+            OneWayNode<T> _currentNode = _head;
+            while (_currentNode.Next  != null) 
+            {
+                yield return _currentNode.Data;
+                _currentNode = _currentNode.Next;
+                if(_currentNode.Next == null)
+                {
+                    yield return _currentNode.Data;
+                }
+            }            
+        }
 
-
-        public class Enumerator : IMyEnumerator, IMyEnumerator<T>
+    public class Enumerator : IMyEnumerator, IMyEnumerator<T>
         {
             private OneWayNode<T> _currentNode;
             private T _currentData;

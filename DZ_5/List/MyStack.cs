@@ -1,4 +1,6 @@
-﻿namespace DZ_5.Generic
+﻿using System.Collections.Generic;
+
+namespace DZ_5.Generic
 {
     internal class MyStack<T> : IMyEnumerable<T>, IMyEnumerable, IMyCollection
     {
@@ -43,8 +45,15 @@
             _items.Clear();
         }
 
-        public IMyEnumerator<T> GetEnumerator() => new Enumerator(this);
+        IMyEnumerator<T> IMyEnumerable<T>.GetEnumerator() => new Enumerator(this);
         IMyEnumerator IMyEnumerable.GetEnumerator() => new Enumerator(this);
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                yield return _items[i];
+            }
+        }
 
         public class Enumerator : IMyEnumerator, IMyEnumerator<T>
         {
