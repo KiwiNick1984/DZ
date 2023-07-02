@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="List\MyObservableList.cs" />
     <Compile Include="MyInterface\Generic\IMyCollection.cs" />
     <Compile Include="MyInterface\Generic\IMyEnumerable.cs" />
     <Compile Include="MyInterface\Generic\IMyEnumerator.cs" />

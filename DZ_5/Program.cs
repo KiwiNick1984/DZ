@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -148,13 +150,24 @@ namespace DZ_5
             #region [  MyObservableCollection  ]
             //////////////////////////MyObservableCollection////////////////////////////
             Console.WriteLine("\t!!!---MyObservableCollection---!!!");
-            MyList<int> myObservableCollection = new MyList<int>();
-            void AddLog(string strlog) => Console.WriteLine(strlog);
-            myObservableCollection.Add(1, AddLog);
-            myObservableCollection.Add(2, AddLog);
-            myObservableCollection.Add(3, AddLog);
-            myObservableCollection.Insert(0, 100, AddLog);
-            myObservableCollection.Insert(2, 200, AddLog);
+            void DoAddToList(object sender, EvantList_add<int> e)
+            {
+                Console.WriteLine($"{e.Item} добавлен в позицию {e.Index}");
+            }
+            void DoRemoveFromList(object sender, EvantList_add<int> e)
+            {
+                Console.WriteLine($"Элемент {e.Item} Удален");
+            }
+            MyObservableList<int> myObservableCollection = new MyObservableList<int>();
+            myObservableCollection.ListChanged_add += DoAddToList;
+            myObservableCollection.ListChanged_remove += DoRemoveFromList;
+
+            myObservableCollection.Add(1);
+            myObservableCollection.Add(2);
+            myObservableCollection.Add(3);
+            myObservableCollection.Insert(0, 100);
+            myObservableCollection.Insert(2, 200);
+            myObservableCollection.Remove(2);
             foreach (var item in myObservableCollection)
             {
                 Console.WriteLine(item);
@@ -324,6 +337,11 @@ namespace DZ_5
             }
             Console.WriteLine();
             #endregion
+        }
+
+        private static void MyObservableCollection_ListChanged_add(object sender, EvantList_add<int> e)
+        {
+            throw new NotImplementedException();
         }
     }
     internal class Person : IComparable<Person>

@@ -30,11 +30,7 @@ namespace DZ_5.Generic
             }
             _items[_size++] = inItem;
         }
-        public void Add(T inItem, Action<string> addLogAction)
-        {
-            Add(inItem);
-            addLogAction($"Добавлен элемент {inItem}");
-        }
+
         void IMyList.Add(object inItem)
         {
             try
@@ -102,7 +98,7 @@ namespace DZ_5.Generic
         {
             return Contains((T)inItem);
         }
-        public void Insert(int index, T inItem)
+        public virtual void Insert(int index, T inItem)
         {
             if ((uint)index > (uint)_size)
             {
@@ -119,11 +115,6 @@ namespace DZ_5.Generic
             _items[index] = inItem;
             _size++;
         }
-        public void Insert(int index, T inItem, Action<string> insertLogAction)
-        {
-            this.Insert(index, inItem);
-            insertLogAction($"Элемент {inItem} вставлен в позицию {index}");
-        }
         void IMyList.Insert(int index, object inIndex)
         {
             try
@@ -136,7 +127,7 @@ namespace DZ_5.Generic
             }
 
         }
-        public void Remove(T inItem)
+        public virtual void Remove(T inItem)
         {
             int num = IndexOf(inItem);
             if (num >= 0)
@@ -215,18 +206,21 @@ namespace DZ_5.Generic
         }
         public void Sort()
         {
-            IComparable<T> tempItem;
+            //IComparable<T> tempItem;
             int i;
             for (int j = 1; j < Count; j++)
             {
-                tempItem = (IComparable<T>)_items[j];
-                i = j - 1;
-                while(i >= 0 && tempItem.CompareTo(_items[i]) < 0)
+                if(_items[j] is IComparable<T> tempItem)
                 {
-                    _items[i + 1] = _items[i];
-                    i--;
+                    tempItem = (IComparable<T>)_items[j];
+                    i = j - 1;
+                    while (i >= 0 && tempItem.CompareTo(_items[i]) < 0)
+                    {
+                        _items[i + 1] = _items[i];
+                        i--;
+                    }
+                    _items[i + 1] = (T)tempItem;
                 }
-                _items[i + 1] = (T)tempItem;
             }
         }
         public void Sort(IComparer<T> comparer)
