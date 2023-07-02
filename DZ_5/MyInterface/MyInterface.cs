@@ -9,8 +9,6 @@ namespace DZ_5
     {
         object this[int index] { get; set; }
         void Add(object value);
-        bool Contains(object value);
-        void Clear();
         int IndexOf(object value);
         void Insert(int index, object value);
         void Remove(object value);
@@ -18,6 +16,8 @@ namespace DZ_5
     }
     public interface IMyCollection
     {
+        void Clear();
+        bool Contains(object value);
         int Count { get; }
         object [] ToArray();
     }
