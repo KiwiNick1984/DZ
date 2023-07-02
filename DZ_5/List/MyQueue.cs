@@ -29,6 +29,10 @@ namespace DZ_5.Generic
         {
             return listStruct.Contains(item);
         }
+        bool IMyCollection.Contains(object inItem)
+        {
+            return Contains((T)inItem);
+        }
         public T Peek()
         {
             return listStruct[0];
@@ -50,7 +54,6 @@ namespace DZ_5.Generic
                 yield return listStruct[i];
             }
         }
-
 
         public class Enumerator : IMyEnumerator, IMyEnumerator<T>
         {

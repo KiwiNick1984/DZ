@@ -35,6 +35,12 @@ namespace DZ_5
             {
                 Console.Write(item + ", ");
             }
+            Console.WriteLine();
+            foreach (var item in myList.MyTakeWhile_Yield(i => i<100))
+            {
+                Console.Write(item + ", ");
+            }
+
             Console.WriteLine($"\n\nmyList.Sort()");
             myList.Sort();
             foreach (var item in myList)
