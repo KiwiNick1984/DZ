@@ -76,7 +76,6 @@ namespace DZ_7
                 },
                 "Leonardo DiCaprio"
             };
-            Console.WriteLine(string.Compare());
             foreach (var item in data.Where(i => !(i is ArtObject)))
             {
                 Console.WriteLine(item);
