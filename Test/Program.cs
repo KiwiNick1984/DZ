@@ -1,17 +1,49 @@
-﻿//List<int> testList = new List<int> { 1, 2, 3 };
-using Test;
-int[] arr = { 2, 67, 99, 100, 200 };
-testEnum ee = new testEnum(arr);
+﻿
 
+using System.Reflection;
 
-foreach (var item in ee)
+internal class Program
 {
-    Console.WriteLine(item);
-}
+    [System.AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
+    sealed class MyAttribute : Attribute
+    {
+        // See the attribute guidelines at 
+        //  http://go.microsoft.com/fwlink/?LinkId=85236
+        readonly string _className;
+        readonly int _numOfProp;
 
-foreach (var item in ee)
-{
-    Console.WriteLine(item);
-}
+        // This is a positional argument
+        public MyAttribute(string className, int numOfProp)
+        {
+            _className = className;
+            _numOfProp = numOfProp;
+        }
 
-Console.WriteLine("Hello, World!");
+        public string ClassName
+        {
+            get { return _className; }
+        }
+
+        public int NumOfProp
+        {
+            get { return _numOfProp; }
+        }
+    }
+    [My("MyTestClass", 2)]
+    class MyTestClass
+    {
+        public int XPos { get; set; }
+        public int YPos { get; set; }
+        public void PrintPoint()
+        {
+            Console.WriteLine($"XPos = {XPos}, YPos = {YPos}");
+        }
+    }
+    static void Main(string[] args)
+    {
+        MyTestClass myTestObj = new MyTestClass();
+        var type = myTestObj.GetType();
+        var atr = type.GetCustomAttributes<MyAttribute>();
+
+    }
+}
