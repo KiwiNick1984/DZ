@@ -38,15 +38,21 @@ namespace DZ_7
     internal class Program
     {
         static void Main(string[] args)
-        {            
+        {
             var data = new List<object>()
             {
                 "Hello",
-                new Book() 
+                new Book()
                 {
-                    Author = "Terry Pratchett", 
-                    Name = "Guards! Guards!", 
-                    Pages = 810 
+                    Author = "Terry Pratchett",
+                    Name = "Guards! Guards!",
+                    Pages = 810
+                },
+                new Book()
+                {
+                    Author = "Terry Pratchett",
+                    Name = "Book2",
+                    Pages = 810
                 },
                 new List<int>() {4, 6, 8, 2},
                 new string[] {"Hello inside array"},
@@ -97,67 +103,62 @@ namespace DZ_7
                 "Leonardo DiCaprio"
             };
             //1.Виведіть усі елементи, крім ArtObjects
-            Console.WriteLine("1");
+            Console.WriteLine("->1");
             Console.WriteLine(string.Join(", ", data.Where(i => !(i is ArtObject))));
             Console.WriteLine();
             //2. Виведіть імена всіх акторів
-            Console.WriteLine("2");
+            Console.WriteLine("->2");
             Console.WriteLine(string.Join(", ", data.OfType<Film>().Cast<Film>().SelectMany(f => f.Actors.Select(a => a?.Name)).Distinct()));
             Console.WriteLine();
             //3.Виведіть кількість акторів, які народилися в серпні
-            Console.WriteLine("3");
-            Console.WriteLine(string.Join(", ", data.OfType<Film>().Cast<Film>().SelectMany(i => i.Actors.Where(a => a.Birthdate.Month == 8).Select(a => a.Name)).Distinct()));
+            Console.WriteLine("->3");
+            Console.WriteLine(string.Join(", ", data.OfType<Film>().Cast<Film>().SelectMany(i => i.Actors.Where(a => a.Birthdate.Month == 8).Select(a => a.Name)).Distinct().Count()));
             Console.WriteLine();
             //4.Виведіть два найстаріших імена акторів
-            Console.WriteLine("4");
+            Console.WriteLine("->4");
             Console.WriteLine(string.Join(", ", data.OfType<Film>().Cast<Film>().SelectMany(i => i.Actors).OrderBy(a => a.Birthdate).Select(a => a.Name).Take(2)));
             Console.WriteLine();
             //5.Вивести кількість книг на авторів
-            Console.WriteLine("5");
+            Console.WriteLine("->5");
             Console.WriteLine(string.Join(", ", data.OfType<Book>().Cast<Book>().GroupBy(b => b.Author).Select(x => string.Join(" ", x.Key, x.Count()))));
             Console.WriteLine();
             //6.Виведіть кількість книг на одного автора та фільмів на одного режисера
-            Console.WriteLine("6");
+            Console.WriteLine("->6");
             Console.WriteLine(string.Join(", ", data.Where(b => b is Film || b is Book).GroupBy(b => (b is Film) ? ((Film)b).Author : ((Book)b).Author).Select(x => string.Join(" ", x.Key, x.Count()))));
             Console.WriteLine();
             //7.Виведіть, скільки різних букв використано в іменах усіх акторів
-            Console.WriteLine("7");
+            Console.WriteLine("->7");
             Console.WriteLine(string.Join(", ", data.OfType<Film>().Cast<Film>().SelectMany(f => f.Actors.Select(a => a?.Name)).GroupBy(a => a).Select(a => string.Join(" ", a.Key, (a.Key).Replace(" ", "").Distinct().Count()))));
             Console.WriteLine();
             //8.Виведіть назви всіх книг, упорядковані за іменами авторів і кількістю сторінок
-            Console.WriteLine("8");
+            Console.WriteLine("->8");
             Console.WriteLine(string.Join(", ", data.OfType<Book>().Cast<Book>().OrderBy(b => b.Author).ThenBy(b => b.Pages).Select(b => b.Name)));
             Console.WriteLine();
             //9.Виведіть ім'я актора та всі фільми за участю цього актора
-
-            var rerult = data.OfType<Film>().
-                  Cast<Film>().
-                  SelectMany(f => f.Actors).
-                  Select(f => f.Name).
-                  Distinct().
-                  Select(an => string.Concat(an + "\n", string.Join("\n", data.OfType<Film>().
-                                                                        Cast<Film>().
-                                                                        Where(f => f.Actors.Any(a => a.Name == an)).
-                                                                        Select(f => "\t" + f.Name)
-                                                            )
-                            
-                                            )
-                        );
-            foreach (var item in rerult)
-            {
-                Console.WriteLine(item);
-            }
-
+            Console.WriteLine("->9");
+            Console.WriteLine(string.Join(", \n", data.OfType<Film>().Cast<Film>().SelectMany(f => f.Actors).Select(f => f.Name).Distinct().Select(an => string.Concat(an + "\n", string.Join("\n", data.OfType<Film>().Cast<Film>().Where(f => f.Actors.Any(a => a.Name == an)).Select(f => "\t" + f.Name))))));
+            Console.WriteLine();
             //10.Виведіть суму загальної кількості сторінок у всіх книгах і всі значення int у всіх послідовностях у даних
-            //Console.WriteLine(10);
-            //foreach (var item in data.Where(i => i is List<int> || i is Book).Select(i => (i is Book) ? ((Book)i).Pages:1))
-            //{
-            //    Console.WriteLine(item);
-            //}
+            Console.WriteLine("->10");
+            Console.WriteLine(data.Where(i => i is List<int> || i is Book).Select(i => (i is Book) ? ((Book)i).Pages : ((List<int>)i).Aggregate((x, y) => x + y)).Aggregate((x, y) => x + y));
+            Console.WriteLine();
             //11.Отримати словник з ключем - автор книги, значенням - список авторських книг
+            Console.WriteLine("->11");
+            var result = data.OfType<Book>().Cast<Book>().GroupBy(b => b.Author).ToDictionary(gr => gr.Key, gr => gr.Select(b => b.Name));
+            foreach (var item in result)
+            {
+                Console.WriteLine(item.Key);
+                foreach (var item2 in item.Value)
+                    Console.WriteLine(item2);
+            }
+            Console.WriteLine();
             //Dictionary<string, List<Book>> dict = data.OfType<Book>().Cast<Book>().GroupBy(x => x.Author, )
             //12.Вивести всі фільми "Метт Деймон", за винятком фільмів з акторами, імена яких представлені в даних у вигляді рядків
-
+            Console.WriteLine("-> 12");
+            Console.WriteLine(string.Join(", ", data.OfType<Film>().Cast<Film>().
+                                                    Select(f => new { film = f, actorsList = f.Actors }).
+                                                    Where(u => u.actorsList.Select(a => a.Name).Cast<string>().Intersect(data.OfType<string>().Cast<string>()).Count() == 0 && u.actorsList.Select(a => a.Name).Contains("Matt Damon")).
+                                                    Select(u => u.film.Name)));
         }
     }
 }
