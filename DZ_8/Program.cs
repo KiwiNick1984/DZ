@@ -1,97 +1,39 @@
-﻿using DZ_8;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-List<int> ints = new List<int>();
-ints.Select(x => (int)x);
-
-//////////////////////////MyList////////////////////////////
-MyList myList = new MyList();
-myList.Add("str");
-myList.Add(52);
-myList.Add(4.8);
-myList.Add(true);
-myList.Add("string");
-myList.Add(520);
-myList.Add(45.8);
-var filter = myList.MyLast();
-
-foreach (var item in filter)
+namespace DZ_8
 {
-    Console.WriteLine(item);
+    internal class Program
+    {
+        class Film
+        {
+            public string Name { get; set; }
+            public string Director { get; set; }
+        }
+        class Director
+        {
+            public string Name { get; set; }
+            public string Country { get; set; }
+        }
+
+
+        static void Main(string[] args)
+        {
+            List<Film> films = new List<Film>()
+            {
+                new Film { Name = "The Silence of the Lambs", Director ="Jonathan Demme" },
+                new Film { Name = "The World's Fastest Indian", Director ="Roger Donaldson" },
+                new Film { Name = "The Recruit", Director ="Roger Donaldson" }
+            };
+            List<Director> directors = new List<Director>()
+            {
+                new Director {Name="Jonathan Demme", Country="USA"},
+                new Director {Name="Roger Donaldson", Country="New Zealand"},
+            };
+            //Вивести всі фільми у такому форматі: "FilmName DirectorName (DirectorCountry)"
+        }
+    }
 }
-//myList.Add(true);
-////////////////////////////OneWayList////////////////////////////
-//OneWayList oneWayList = new OneWayList();
-//oneWayList.Add("str");
-//oneWayList.Add(52);
-//oneWayList.Add(4.8);
-//oneWayList.Add(true);
-//oneWayList.Add("Add");
-//var filter = oneWayList.MySkip(3);
-//foreach (var item in filter)
-//{
-//    Console.WriteLine(item);
-//}
-//////////////////////////TowWaysList////////////////////////////
-//TowWaysList towWaysList = new TowWaysList();
-//towWaysList.Add("str");
-//towWaysList.Add(52);
-//towWaysList.Add(4.8);
-//towWaysList.Add(true);
-//towWaysList.Add("Add");
-//var filter = towWaysList.MySkip(3);
-//foreach (var item in filter)
-//{
-//    Console.WriteLine(item);
-//}
-////////////////////////////MyStack////////////////////////////
-//MyStack myStack = new MyStack();
-//myStack.Push(1);
-//myStack.Push(2);
-//myStack.Push(3);
-//myStack.Push(4);
-//var filter = myStack.MySkip(3);
-//foreach (var item in filter)
-//{
-//    Console.WriteLine(item);
-//}
-////////////////////////////MyQueue////////////////////////////
-//MyQueue myQueue = new MyQueue();
-//myQueue.Enqueue(1);
-//myQueue.Enqueue(2);
-//myQueue.Enqueue(3);
-//myQueue.Enqueue(4);
-//var filter = myQueue.MySkip(3);
-//foreach (var item in filter)
-//{
-//    Console.WriteLine(item);
-//}
-
-////Console.WriteLine(myList[2]);
-//Console.WriteLine("Hello, World!");
-
-
-GetBike getBike = (string color) => new SportBike(color);
-Bike MyBike = getBike("Green");
-MyBike.GetColor();
-Console.WriteLine();
-
-
-
-public class Bike
-{
-    public string _color;
-    public Bike(string color) => _color = color;
-    public virtual void GetColor() => Console.WriteLine($"Color bike is {_color}");
-}
-
-public class SportBike : Bike
-{
-    public SportBike(string color) : base(color)
-    { }
-    public override void GetColor() => Console.WriteLine($"Color sportbike is {_color}");
-
-}
-
-delegate Bike GetBike(string color);
