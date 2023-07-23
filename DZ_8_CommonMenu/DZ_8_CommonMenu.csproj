@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{884B2671-8203-44E3-9C4D-D3D02A297946}</ProjectGuid>
+    <ProjectGuid>{035390DF-962F-4D5B-946A-D58E5865BAB0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DZ_8</RootNamespace>
-    <AssemblyName>DZ_8</AssemblyName>
+    <RootNamespace>DZ_8_CommonMenu</RootNamespace>
+    <AssemblyName>DZ_8_CommonMenu</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,8 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\ExitMenuItem.cs" />
+    <Compile Include="Interfase\IMenu.cs" />
+    <Compile Include="Interfase\IMenuIten.cs" />
+    <Compile Include="Class\Menu.cs" />
+    <Compile Include="Attributes\MenuActionsAttribute.cs" />
+    <Compile Include="Class\MenuItem.cs" />
+    <Compile Include="Attributes\MainMenuAttribute.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Attributes\SubMenuAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
