@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace DZ_4
 {
     internal class Program
-    {        
+    {
         static void Main(string[] args)
         {
             /////////////////////////1_RepkaStory//////////////////////////////

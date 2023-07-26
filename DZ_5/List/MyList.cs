@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace DZ_5.Generic
 {
-    internal class MyList<T> : IMyList<T>, IMyList, IMyCollection<T>, IMyCollection
+    public class MyList<T> : IMyList<T>, IMyList, IMyCollection<T>, IMyCollection
     {
         private T[] _items;
         private int _size;

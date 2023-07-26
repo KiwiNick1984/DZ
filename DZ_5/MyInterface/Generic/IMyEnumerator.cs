@@ -2,7 +2,7 @@
 {
     public interface IMyEnumerator<out T> : IMyEnumerator
     {
-        T Current
+        new T Current
         {
             get;
         }
