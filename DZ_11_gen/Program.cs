@@ -21,7 +21,7 @@ internal class Program
         "Countri_5",
     };
     static List<string> Districts = new List<string>()
-    {
+        {
         "District_1",
         "District_2",
         "District_3",
@@ -38,12 +38,12 @@ internal class Program
     }
 
     private static void Main(string[] args)
-    {
+            {
         List<string> citysInfo = new List<string>();
         Random rnd = new Random();
         var sw = Stopwatch.StartNew();
         for (int i = 0; i < 10000000; i++)
-        {
+                {
             CityRec cityRec = new CityRec(
                 CityNames[rnd.Next(0, CityNames.Count)],
                 Countrise[rnd.Next(0, Countrise.Count)],

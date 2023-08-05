@@ -14,7 +14,7 @@ internal class Program
 
     }
     public class CityParser
-    {
+        {
         List<CityInfo> cityInfoList = new List<CityInfo>();
 
         public void SimpleParser()
@@ -83,12 +83,12 @@ internal class Program
             Console.WriteLine($"SpanParser: {sw.Elapsed}");
 
             using (FileStream fs = new FileStream("../../../../CityInfo.json", FileMode.OpenOrCreate))
-            {
+        {
                 foreach (var line in cityInfoList)
-                {
+            {
                     JsonSerializer.Serialize<CityInfo>(fs, line);
                 }
-            }
+            }            
             //{
             //    foreach (var line in _cityInfo)
             //    {
@@ -98,4 +98,5 @@ internal class Program
         }
         //City_3:265,79;4942;Countri_1(District_5)
     }
+
 }
