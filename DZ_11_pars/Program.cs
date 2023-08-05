@@ -11,6 +11,7 @@ internal class Program
         CityParser cityParser = new CityParser();
         cityParser.SimpleParser();
         cityParser.SpanParser();
+
     }
     public class CityParser
     {
