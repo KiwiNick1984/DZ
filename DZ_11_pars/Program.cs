@@ -18,7 +18,7 @@ internal class Program
         List<CityInfo> cityInfoList = new List<CityInfo>();
 
         public void SimpleParser()
-        {
+            {
             string[] splitedLine;
 
             string cityName;
@@ -45,7 +45,7 @@ internal class Program
             }
             sw.Stop();
             Console.WriteLine($"SimpleParser: {sw.Elapsed}");
-        }
+            }
         public void SpanParser()
         {
             ReadOnlySpan<char> lineSpan;
@@ -78,7 +78,7 @@ internal class Program
 
 
                 cityInfoList.Add(new CityInfo(cityName, square, population, coutri, district));
-            }
+        }
             sw.Stop();
             Console.WriteLine($"SpanParser: {sw.Elapsed}");
 

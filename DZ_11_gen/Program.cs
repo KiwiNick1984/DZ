@@ -38,7 +38,7 @@ internal class Program
     }
 
     private static void Main(string[] args)
-            {
+    {
         List<string> citysInfo = new List<string>();
         Random rnd = new Random();
         var sw = Stopwatch.StartNew();
