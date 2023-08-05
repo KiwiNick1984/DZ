@@ -2,7 +2,7 @@
 using System.Text.Json;
 
 internal class Program
-{
+{    
     record CityInfo(string cityName, double square, int population, string country, string district);
 
     private static void Main(string[] args)
