@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
+
 internal class Program
 {
     static List<string> CityNames = new List<string>()

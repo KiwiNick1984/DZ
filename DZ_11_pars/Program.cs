@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text.Json;
 
 internal class Program
@@ -14,11 +13,11 @@ internal class Program
 
     }
     public class CityParser
-        {
+    {
         List<CityInfo> cityInfoList = new List<CityInfo>();
 
         public void SimpleParser()
-            {
+        {
             string[] splitedLine;
 
             string cityName;
@@ -45,7 +44,7 @@ internal class Program
             }
             sw.Stop();
             Console.WriteLine($"SimpleParser: {sw.Elapsed}");
-            }
+        }
         public void SpanParser()
         {
             ReadOnlySpan<char> lineSpan;
@@ -78,23 +77,17 @@ internal class Program
 
 
                 cityInfoList.Add(new CityInfo(cityName, square, population, coutri, district));
-        }
+            }
             sw.Stop();
             Console.WriteLine($"SpanParser: {sw.Elapsed}");
 
             using (FileStream fs = new FileStream("../../../../CityInfo.json", FileMode.OpenOrCreate))
-        {
-                foreach (var line in cityInfoList)
             {
-                    JsonSerializer.Serialize<CityInfo>(fs, line);
+                foreach (var line in cityInfoList)
+                {
+                        JsonSerializer.Serialize<CityInfo>(fs, line);
                 }
             }            
-            //{
-            //    foreach (var line in _cityInfo)
-            //    {
-            //        JsonSerializer.Serialize<CityInfo>(fs, line);
-            //    }            
-            //}
         }
         //City_3:265,79;4942;Countri_1(District_5)
     }
